@@ -1,0 +1,14 @@
+{
+  "name": "nutrinova-app",
+  "version": "1.0.0",
+  "description": "Aplicación NutriNova",
+  "main": "index.js",
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2"
+  },
+  "scripts": {
+    "build": "echo 'Build complete'"
+  }
+}
