@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NutriNova - Tu Nutrición Personalizada</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      font-size: 18px;
+      color: #333;
+    }
+
+    /* HEADER */
+    .headerbox {
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .headerbox-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 40px;
+    }
+
+    .headerbox-logo {
+      height: 150px;
+      width: auto;
+    }
+
+    .headerbox-container-a {
+      display: flex;
+      align-items: center;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .headerbox-a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 600;
+      font-size: 24px;
+      margin: 0 20px;
+      transition: color 0.3s ease;
+    }
+
+    .headerbox-a:hover {
+      color: #6b46c1;
+    }
+
+    .headerbox-a-btn {
+      background: linear-gradient(135deg, #f97316, #ec4899);
+      color: white;
+      padding: 12px 28px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 700;
+      font-size: 18px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+    }
+
+    .headerbox-a-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+      color: white;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    /* Hero */
+    .hero-section {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 65vh;
+      background: url('https://img.freepik.com/fotos-premium/fresh-organic-vegetables-fruits-healthy-eating-concept_1179130-10247.jpg?w=740') center/cover no-repeat;
+      position: relative;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(107, 70, 193, 0.7), rgba(236, 72, 153, 0.7));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+    }
+
+    .hero-content {
+      color: white;
+      font-size: 28px;
+      font-weight: bold;
+      text-align: center;
+      max-width: 800px;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      padding: 12px 28px;
+      font-size: 18px;
+      background-color: #222;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 8px;
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .hero-btn:hover {
+      background-color: #444;
+    }
+
+    /* Secciones */
+    section {
+      padding: 80px 20px;
+    }
+
+    h3 {
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 40px;
+    }
+
+    /* Servicios */
+    .service-card {
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .service-card i {
+      font-size: 40px;
+      color: #6b46c1;
+      margin-bottom: 15px;
+    }
+
+    /* Testimonios */
+    .testimonial {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      font-style: italic;
+      box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Contacto */
+    .form-control {
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 16px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6b46c1, #ec4899);
+      border: none;
+      padding: 14px 30px;
+      font-size: 18px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(236, 72, 153, 0.4);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .headerbox-container {
+        flex-direction: column;
+      }
+
+      .headerbox-container-a {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .hero-content {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <div class="headerbox">
+    <div class="headerbox-container">
+      <a href="#inicio"><img class="headerbox-logo" src="logo-nutrinova.png" alt="NutriNova Logo" /></a>
+
+      <div class="headerbox-container-a" id="nav-links">
+        <a href="#inicio" class="headerbox-a">Inicio</a>
+        <a href="#servicios" class="headerbox-a">Servicios</a>
+        <a href="productos.html" class="headerbox-a">Productos</a>
+        <a href="#nosotros" class="headerbox-a">Nosotros</a>
+        <a href="#testimonios" class="headerbox-a">Testimonios</a>
+        <a href="#contacto" class="headerbox-a">Contacto</a>
+      </div>
+
+      <a href="#" class="headerbox-a-btn" onclick="mostrarLogin()">Iniciar Sesión</a>
+    </div>
+  </div>
+
+  <!-- ESPACIADOR -->
+  <div style="height: 120px;"></div>
+
+  <!-- HERO -->
+  <section class="hero-section" id="inicio">
+    <div class="hero-overlay">
+      <div class="hero-content">
+        ¡Descubre tu nutrición ideal hoy! Calcula tu IMC gratis y da el primer paso hacia una alimentación más saludable.
+        <br><br>
+        <a href="#" class="hero-btn" onclick="mostrarCalculadoraIMC()">Calcular IMC</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <h3>Nuestros Servicios</h3>
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="service-card">
+            <img src="nutri.jfif" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;" alt="Planes Nutricionales">
+            <h5>Planes Nutricionales</h5>
+            <p>Diseñados especialmente para ti según tus objetivos y necesidades.</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="service-card">
+            <img src="imc.jpg" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;" alt="Control de IMC">
+            <h5>Control de IMC</h5>
+            <p>Calcula tu índice de masa corporal y recibe recomendaciones.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros" style="background:#f8f8f8;">
+    <h3>Sobre Nosotros</h3>
+    <div class="container text-center">
+         <img src="gru.png" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;" alt="Asesoría Profesional">
+      <p>En <strong>NutriNova</strong> creemos que una buena nutrición es la clave para una vida saludable y plena. Nuestro equipo de expertos está comprometido a brindarte las mejores herramientas y acompañamiento en tu camino hacia el bienestar.</p>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="testimonios">
+    <h3>Testimonios</h3>
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="testimonial">
+            <img src="imagen_t1.png" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;" alt="Cliente 1">
+            <br>
+            "Gracias a NutriNova logré alcanzar mi peso ideal y ahora me siento con más energía cada día."
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial">
+            <img src="imagen_t3.png" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;" alt="Cliente 2">
+            <br>
+            "La asesoría es personalizada y siempre están atentos a mis necesidades. ¡Recomendado 100%!"
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial">
+            <img src="imagen_t2.png" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; margin-bottom: 15px;" alt="Cliente 3">
+            <br>
+            "La calculadora de IMC me ayudó a entender mejor mi estado de salud y tomar acción."
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" style="background:#f8f8f8;">
+    <h3>Contáctanos</h3>
+    <div class="container">
+      <form id="contactForm">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <input type="text" class="form-control" id="nombre" placeholder="Tu Nombre" required>
+          </div>
+          <div class="col-md-6">
+            <input type="email" class="form-control" id="correo" placeholder="Tu Correo" required>
+          </div>
+          <div class="col-12">
+            <textarea class="form-control" rows="5" id="mensaje" placeholder="Tu Mensaje" required></textarea>
+          </div>
+          <div class="col-12 text-center">
+            <button class="btn btn-primary mt-3" type="submit">Enviar Mensaje</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <footer class="text-center p-4" style="background:#222; color:white;">
+    © 2025 NutriNova. Todos los derechos reservados.
+  </footer>
+
+  <script>
+    function mostrarLogin() {
+      window.location.href = 'inicio_sesion.html';
+    }
+    
+    function mostrarCalculadoraIMC() {
+      window.location.href = 'calcular_imc.html';
+    }
+
+    // Formulario de contacto con SweetAlert
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const nombre = document.getElementById('nombre').value;
+      const correo = document.getElementById('correo').value;
+      const mensaje = document.getElementById('mensaje').value;
+      
+      if (!nombre || !correo || !mensaje) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Por favor completa todos los campos',
+          confirmButtonColor: '#6b46c1'
+        });
+        return;
+      }
+      
+      // Mostrar mensaje de éxito
+      Swal.fire({
+        icon: 'success',
+        title: '¡Gracias por contactarnos!',
+        text: `Hola ${nombre}, hemos recibido tu mensaje y te responderemos pronto a ${correo}`,
+        confirmButtonColor: '#6b46c1'
+      }).then(() => {
+        // Limpiar formulario
+        document.getElementById('contactForm').reset();
+      });
+    });
+  </script>
+
+</body>
+</html>

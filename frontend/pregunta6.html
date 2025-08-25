@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>NutriNova</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="icon" type="image/png" sizes="32x32" href="logo-nutrinova.png">
+    <link rel="icon" type="image/x-icon" href="logo-nutrinova.png">
+    <!-- En el head de pregunta6.html -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .headerbox {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+        }
+
+        .headerbox-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .headerbox-container-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .headerbox-logo {
+            height: 150px;
+            width: auto;
+        }
+
+        .login-container {
+            display: flex;
+            min-height: 100vh;
+            margin-top: 10px;
+        }
+
+        .login-image {
+            flex: 1;
+            background: url('encuesta-imagen.jpg') center/cover no-repeat;
+            position: relative;
+        }
+
+        .login-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(107, 70, 193, 0.7), rgba(236, 72, 153, 0.7));
+        }
+
+        .register-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 60px;
+            background: white;
+        }
+
+        .form-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 500;
+        }
+
+        .register-form-container {
+            width: 100%;
+        }
+
+        .objetivo {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: 500;
+            text-align: center;
+            color: #495057;
+        }
+
+        .objetivo:hover {
+            border-color: #6b46c1;
+            background: linear-gradient(135deg, #f8f6ff, #fef7ff);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(107, 70, 193, 0.2);
+        }
+
+        .objetivo.selected {
+            background: linear-gradient(135deg, #6b46c1, #ec4899);
+            color: white;
+            border-color: #6b46c1;
+            box-shadow: 0 5px 15px rgba(107, 70, 193, 0.4);
+        }
+
+        .form-button {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 20px;
+        }
+
+        .form-button button {
+            flex: 1;
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #leftButton {
+            background: #6c757d;
+            color: white;
+        }
+
+        #leftButton:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        #nextButton {
+            background: linear-gradient(135deg, #6b46c1, #ec4899);
+            color: white;
+        }
+
+        #nextButton:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(107, 70, 193, 0.4);
+        }
+
+        #nextButton:disabled {
+            background: #dee2e6;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .footerbox {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footerbox-p {
+            color: #fff;
+            margin: 0;
+        }
+
+        .footerbox-a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .login-image {
+                height: 300px;
+            }
+
+            .register-form {
+                padding: 40px 30px;
+            }
+
+            .headerbox-logo {
+                height: 100px;
+            }
+
+            .form-title {
+                font-size: 2rem;
+            }
+
+            .objetivo {
+                font-size: 14px;
+                padding: 12px 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="headerbox">
+        <div class="headerbox-container">
+            <div class="headerbox-container-logo">
+                <a href="index.html">
+                    <img class="headerbox-logo" src="logo-nutrinova.png" alt="NutriNova Logo" />
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="login-container">
+        <div class="login-image">
+            <img src="p6.jpg" alt="Imagen de Imc" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+
+        <div class="register-form">
+            <h2 class="form-title">Personalizado</h2>
+            <br>
+            <div class="register-form-container">
+                <p class="form-subtitle">¿Qué productos locales de Cutervo consumes más?</p>
+
+                <div class="objetivo" data-value="cereales-tuberculos"
+                    onclick="selectObjetivo(this, 'cereales-tuberculos')">
+                    Cereales y tubérculos (Papa, Maíz, Yuca)
+                </div>
+
+                <div class="objetivo" data-value="leguminosas" onclick="selectObjetivo(this, 'leguminosas')">
+                    Leguminosas (Frijol, Habas, Arvejas)
+                </div>
+
+                <div class="objetivo" data-value="frutas-tropicales"
+                    onclick="selectObjetivo(this, 'frutas-tropicales')">
+                    Frutas tropicales (Naranja, Plátano, Piña)
+                </div>
+
+                <div class="objetivo" data-value="proteinas-locales"
+                    onclick="selectObjetivo(this, 'proteinas-locales')">
+                    Proteínas locales (Cuy, Cerdo, Aves)
+                </div>
+
+                <div class="objetivo" data-value="lacteos-locales" onclick="selectObjetivo(this, 'lacteos-locales')">
+                    Lácteos locales (Queso, Quesillo, Yogurt)
+                </div>
+
+                <div class="objetivo" data-value="variado" onclick="selectObjetivo(this, 'variado')">
+                    Consumo variado de todos
+                </div>
+
+                <div class="form-button">
+                    <button id="leftButton" onclick="goBackPage()">Anterior</button>
+                    <button id="nextButton" onclick="goToNextPage()" disabled>Siguiente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="footerbox">
+        <div>
+            <p class="footerbox-p">
+                <a class="footerbox-a">Copyright © 2025&nbsp;&nbsp;&nbsp;</a>
+                <a class="footerbox-a">NUTRINOVA</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let selectedValue = null;
+
+        function selectObjetivo(element, value) {
+            // Remover selección previa
+            const objetivos = document.querySelectorAll('.objetivo');
+            objetivos.forEach(obj => obj.classList.remove('selected'));
+
+            // Seleccionar el actual
+            element.classList.add('selected');
+            selectedValue = value;
+
+            // Habilitar botón siguiente
+            document.getElementById('nextButton').disabled = false;
+        }
+
+        function goBackPage() {
+            // Regresar a la página anterior
+            window.location.href = 'pregunta5.html';
+        }
+
+        function goToNextPage() {
+            if (selectedValue) {
+                // Guardar la respuesta
+                localStorage.setItem('productos-locales', selectedValue);
+
+                // Marcar encuesta como completada
+                localStorage.setItem('encuestaCompletada', 'true');
+
+                // SweetAlert de éxito
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Encuesta Completada!',
+                    text: 'Tu plan nutricional personalizado ha sido generado exitosamente',
+                    confirmButtonColor: '#6b46c1'
+                }).then(() => {
+                    window.location.href = 'plan-nutricional.html';
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

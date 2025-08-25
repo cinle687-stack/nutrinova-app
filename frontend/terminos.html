@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Términos y Condiciones - NutriNova</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .headerbox {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .headerbox-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .headerbox-logo {
+            height: 100px;
+            width: auto;
+        }
+
+        .back-btn {
+            background: linear-gradient(135deg, #6b46c1, #ec4899);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            color: white;
+            box-shadow: 0 4px 15px rgba(107, 70, 193, 0.4);
+        }
+
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 150px 40px 80px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .last-updated {
+            font-size: 0.95rem;
+            color: #888;
+            font-style: italic;
+        }
+
+        .terms-content {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #6b46c1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-icon {
+            color: #6b46c1;
+            font-size: 1.2rem;
+        }
+
+        .section-content {
+            font-size: 1rem;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .section-content p {
+            margin-bottom: 15px;
+        }
+
+        .section-content ul {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .section-content li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #f8f6ff, #fef7ff);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #6b46c1;
+            margin: 20px 0;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #6b46c1, #ec4899);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .contact-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .contact-details {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .accept-section {
+            background: #e8f5e8;
+            border: 2px solid #28a745;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .accept-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #155724;
+            margin-bottom: 15px;
+        }
+
+        .accept-text {
+            color: #155724;
+            margin-bottom: 20px;
+        }
+
+        .accept-btn {
+            background: #28a745;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .accept-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .decline-btn {
+            background: #6c757d;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+        }
+
+        .decline-btn:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .footerbox {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footerbox-p {
+            color: #fff;
+            margin: 0;
+        }
+
+        .footerbox-a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 130px 20px 50px;
+            }
+
+            .terms-content {
+                padding: 25px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .contact-details {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .headerbox-container {
+                padding: 0 20px;
+            }
+
+            .accept-btn, .decline-btn {
+                margin: 5px;
+                width: 100%;
+            }
+        }
+
+        .table-responsive {
+            margin: 20px 0;
+        }
+
+        .table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table th {
+            background: linear-gradient(135deg, #6b46c1, #ec4899);
+            color: white;
+            font-weight: 600;
+            border: none;
+        }
+
+        .table td {
+            border-color: #e9ecef;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div class="headerbox">
+        <div class="headerbox-container">
+            <div class="headerbox-container-logo">
+                <a href="index.html">
+                    <img class="headerbox-logo" src="logo-nutrinova.png" alt="NutriNova Logo" />
+                </a>
+            </div>
+            <a href="javascript:history.back()" class="back-btn">
+                <i class="fas fa-arrow-left"></i> Volver
+            </a>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-container">
+        <div class="page-header">
+            <h1 class="page-title">Términos y Condiciones</h1>
+            <p class="page-subtitle">NutriNova - Plataforma de Nutrición Personalizada</p>
+            <p class="last-updated">Última actualización: Agosto 2025</p>
+        </div>
+
+        <div class="terms-content">
+            <!-- Sección 1: Aceptación -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-handshake section-icon"></i>
+                    1. Aceptación de los Términos
+                </h2>
+                <div class="section-content">
+                    <p>Al acceder y utilizar la plataforma NutriNova, usted acepta estar sujeto a estos Términos y Condiciones de uso. Si no está de acuerdo con alguna parte de estos términos, no debe utilizar nuestro servicio.</p>
+                    <p>NutriNova es una plataforma digital que proporciona recomendaciones nutricionales personalizadas basadas en productos locales de la provincia de Cutervo, Cajamarca, Perú.</p>
+                </div>
+            </div>
+
+            <!-- Sección 2: Definiciones -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-book section-icon"></i>
+                    2. Definiciones
+                </h2>
+                <div class="section-content">
+                    <ul>
+                        <li><strong>"NutriNova"</strong> se refiere a nuestra plataforma digital de nutrición personalizada.</li>
+                        <li><strong>"Usuario"</strong> se refiere a cualquier persona que accede o utiliza nuestros servicios.</li>
+                        <li><strong>"Servicio"</strong> incluye todas las funcionalidades de la plataforma: calculadora IMC, encuestas nutricionales y planes alimentarios personalizados.</li>
+                        <li><strong>"Contenido"</strong> incluye textos, imágenes, recomendaciones nutricionales y cualquier material disponible en la plataforma.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sección 3: Servicios -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-utensils section-icon"></i>
+                    3. Descripción de Servicios
+                </h2>
+                <div class="section-content">
+                    <p>NutriNova ofrece los siguientes servicios:</p>
+                    <ul>
+                        <li><strong>Calculadora de IMC:</strong> Herramienta para calcular el Índice de Masa Corporal.</li>
+                        <li><strong>Encuesta nutricional:</strong> Cuestionario personalizado para conocer hábitos y objetivos del usuario.</li>
+                        <li><strong>Planes nutricionales:</strong> Recomendaciones alimentarias basadas en productos locales de Cutervo.</li>
+                        <li><strong>Base de productos locales:</strong> Información sobre alimentos disponibles en los distritos de Cutervo.</li>
+                    </ul>
+
+                    <div class="highlight">
+                        <strong>Importante:</strong> Los planes nutricionales generados son sugerencias generales basadas en la información proporcionada. No constituyen asesoramiento médico profesional.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 4: Limitaciones -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-exclamation-triangle section-icon"></i>
+                    4. Limitaciones y Exención de Responsabilidad
+                </h2>
+                <div class="section-content">
+                    <p><strong>NutriNova NO es un sustituto del consejo médico profesional.</strong> Las recomendaciones proporcionadas son únicamente con fines informativos y educativos.</p>
+                    
+                    <p>El usuario reconoce y acepta que:</p>
+                    <ul>
+                        <li>Debe consultar con un profesional de la salud antes de realizar cambios significativos en su dieta.</li>
+                        <li>Las recomendaciones se basan en algoritmos y pueden no ser adecuadas para todas las personas.</li>
+                        <li>NutriNova no se hace responsable por resultados adversos derivados del seguimiento de las recomendaciones.</li>
+                        <li>Los usuarios con condiciones médicas específicas deben buscar supervisión médica.</li>
+                    </ul>
+
+                    <div class="highlight">
+                        <strong>Condiciones que requieren supervisión médica:</strong> Diabetes, hipertensión, enfermedades cardíacas, trastornos alimentarios, embarazo, lactancia, o cualquier condición médica crónica.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección 5: Privacidad -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-shield-alt section-icon"></i>
+                    5. Privacidad y Protección de Datos
+                </h2>
+                <div class="section-content">
+                    <p>La protección de su información personal es fundamental para nosotros:</p>
+                    <ul>
+                        <li><strong>Recolección de datos:</strong> Solo recopilamos información necesaria para proporcionar nuestros servicios (edad, distrito, objetivos nutricionales, etc.).</li>
+                        <li><strong>Uso de datos:</strong> La información se utiliza exclusivamente para generar recomendaciones nutricionales personalizadas.</li>
+                        <li><strong>Almacenamiento:</strong> Los datos se almacenan de forma segura y no se comparten con terceros sin su consentimiento.</li>
+                        <li><strong>Derechos del usuario:</strong> Puede solicitar la eliminación de sus datos en cualquier momento.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sección 6: Uso Aceptable -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-check-circle section-icon"></i>
+                    6. Uso Aceptable
+                </h2>
+                <div class="section-content">
+                    <p>Al utilizar NutriNova, usted se compromete a:</p>
+                    <ul>
+                        <li>Proporcionar información veraz y actualizada en las encuestas.</li>
+                        <li>Utilizar la plataforma únicamente para fines personales y no comerciales.</li>
+                        <li>No reproducir, distribuir o modificar el contenido sin autorización.</li>
+                        <li>No intentar acceder a áreas restringidas o comprometer la seguridad del sistema.</li>
+                        <li>Respetar los derechos de propiedad intelectual de NutriNova.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sección 7: Modificaciones -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-edit section-icon"></i>
+                    7. Modificaciones del Servicio
+                </h2>
+                <div class="section-content">
+                    <p>NutriNova se reserva el derecho de:</p>
+                    <ul>
+                        <li>Modificar, suspender o discontinuar cualquier aspecto del servicio en cualquier momento.</li>
+                        <li>Actualizar estos Términos y Condiciones según sea necesario.</li>
+                        <li>Mejorar algoritmos y recomendaciones nutricionales basándose en nueva información científica.</li>
+                    </ul>
+                    <p>Los usuarios serán notificados de cambios significativos a través de la plataforma.</p>
+                </div>
+            </div>
+
+            <!-- Sección 8: Ley Aplicable -->
+            <div class="section">
+                <h2 class="section-title">
+                    <i class="fas fa-gavel section-icon"></i>
+                    8. Ley Aplicable y Jurisdicción
+                </h2>
+                <div class="section-content">
+                    <p>Estos Términos y Condiciones se rigen por las leyes de la República del Perú. Cualquier disputa será resuelta en los tribunales competentes de la provincia de Cutervo, departamento de Cajamarca.</p>
+                </div>
+            </div>
+
+            <!-- Información de Contacto -->
+            <div class="contact-info">
+                <div class="contact-title">¿Preguntas sobre nuestros Términos?</div>
+                <p>Si tiene alguna pregunta sobre estos Términos y Condiciones, no dude en contactarnos:</p>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>contacto@nutrinova.pe</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>Cutervo, Cajamarca, Perú</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-globe"></i>
+                        <span>www.nutrinova.pe</span>
+                    </div>
+                </div>
+            </div>
+    <!-- FOOTER -->
+    <div class="footerbox">
+        <div>
+            <p class="footerbox-p">
+                <a class="footerbox-a">Copyright © 2025&nbsp;&nbsp;&nbsp;</a>
+                <a class="footerbox-a">NUTRINOVA</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function acceptTerms() {
+            // Guardar aceptación en localStorage
+            localStorage.setItem('termsAccepted', 'true');
+            localStorage.setItem('termsAcceptedDate', new Date().toISOString());
+            
+            // Mostrar mensaje de confirmación
+            alert('¡Gracias! Has aceptado nuestros Términos y Condiciones.');
+            
+            // Redirigir según el contexto
+            if (document.referrer.includes('registro.html')) {
+                // Si viene del registro, volver allí
+                window.location.href = 'registro.html';
+            } else {
+                // Sino, ir al inicio
+                window.location.href = 'index.html';
+            }
+        }
+
+        function declineTerms() {
+            alert('Para utilizar NutriNova es necesario aceptar los Términos y Condiciones.');
+            // Redirigir al inicio si no acepta
+            window.location.href = 'index.html';
+        }
+
+        // Función para volver atrás
+        function goBack() {
+            if (document.referrer) {
+                window.history.back();
+            } else {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // Scroll suave para navegación interna
+        document.addEventListener('DOMContentLoaded', function() {
+            // Si hay un hash en la URL, hacer scroll a esa sección
+            if (window.location.hash) {
+                const element = document.querySelector(window.location.hash);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

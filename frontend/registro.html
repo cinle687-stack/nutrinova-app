@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Regístrate - NutriNova</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            font-size: 18px;
+            color: #333;
+        }
+
+        /* HEADER - MISMO ESTILO QUE INDEX */
+        .headerbox {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .headerbox-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .headerbox-logo {
+            height: 150px;
+            width: auto;
+        }
+
+        .headerbox-container-a {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .headerbox-a-btn {
+            background: linear-gradient(135deg, #f97316, #ec4899);
+            color: white;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+        }
+
+        .headerbox-a-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+            color: white;
+        }
+
+        /* REGISTRO CONTAINER */
+        .login-container {
+            display: flex;
+            min-height: 100vh;
+            margin-top: 120px;
+        }
+
+        .login-image {
+            flex: 1;
+            background: url('imagen-registro.jpg') center/cover no-repeat;
+            position: relative;
+        }
+
+        .login-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(107, 70, 193, 0.7), rgba(236, 72, 153, 0.7));
+        }
+
+        .register-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 60px;
+            background: white;
+        }
+
+        .login-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 16px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #6b46c1;
+        }
+
+        .password-container {
+            position: relative;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #666;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .checkbox-group input {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+        }
+
+        .checkbox-group label {
+            color: #666;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 0;
+        }
+
+        .checkbox-group a {
+            color: #6b46c1;
+            text-decoration: none;
+        }
+
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+
+        .register-button {
+            width: 100%;
+            background: linear-gradient(135deg, #6b46c1, #ec4899);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .register-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 70, 193, 0.4);
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .login-link a {
+            color: #6b46c1;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* FOOTER */
+        .footerbox {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footerbox-p {
+            color: #fff;
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .footerbox-a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .login-container {
+                flex-direction: column;
+            }
+
+            .login-image {
+                height: 300px;
+            }
+
+            .register-form {
+                padding: 40px 30px;
+            }
+
+            .headerbox-logo {
+                height: 100px;
+            }
+
+            .headerbox-container-a {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div class="headerbox">
+        <div class="headerbox-container">
+            <div class="headerbox-container-logo">
+                <a href="index.html">
+                    <img class="headerbox-logo" src="logo-nutrinova.png" alt="NutriNova Logo" />
+                </a>
+            </div>
+
+            <div class="headerbox-container-a">
+                <!-- Menú vacío como en tu original -->
+            </div>
+
+            <a href="inicio_sesion.html" class="headerbox-a-btn">Iniciar Sesión</a>
+        </div>
+    </div>
+
+    <!-- REGISTRO CONTAINER -->
+    <div class="login-container">
+        <div class="login-image">
+            <img src="regis.png" alt="Imagen de inicio de sesión" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+
+        <div class="register-form">
+            <h2 class="login-title">Regístrate</h2>
+
+            <form action="#" id="registro-form" method="POST">
+                <div class="form-group">
+                    <label for="username">Nombre de Usuario</label>
+                    <input type="text" id="nombre" name="username" placeholder="Tu nombre completo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Correo</label>
+                    <input type="email" id="correo" name="email" placeholder="tu@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <div class="password-container">
+                        <input type="password" id="contraseña" name="password" placeholder="*********" required>
+                        <i class="fa-solid fa-eye toggle-password" onclick="togglePasswordVisibility()"
+                            id="toggleEye"></i>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">
+                        Acepto los <a href="terminos.html">Términos y condiciones</a>
+                    </label>
+                </div>
+
+                <button type="submit" class="register-button">Registrar</button>
+
+                <div class="login-link">
+                    ¿Ya tienes cuenta? <a href="inicio_sesion.html">Inicia sesión aquí</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footerbox">
+        <div>
+            <p class="footerbox-p">
+                <a class="footerbox-a">Copyright © 2025&nbsp;&nbsp;&nbsp;</a>
+                <a class="footerbox-a">NUTRINOVA</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('contraseña');
+            const toggleEye = document.getElementById('toggleEye');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleEye.classList.remove('fa-eye');
+                toggleEye.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleEye.classList.remove('fa-eye-slash');
+                toggleEye.classList.add('fa-eye');
+            }
+        }
+
+        document.getElementById('registro-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const nombre = document.getElementById('nombre').value;
+            const correo = document.getElementById('correo').value;
+            const contraseña = document.getElementById('contraseña').value;
+            const terms = document.getElementById('terms').checked;
+
+            if (!nombre || !correo || !contraseña) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Por favor completa todos los campos',
+                    confirmButtonColor: '#6b46c1'
+                });
+                return;
+            }
+
+            if (contraseña.length < 6) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'La contraseña debe tener al menos 6 caracteres',
+                    confirmButtonColor: '#6b46c1'
+                });
+                return;
+            }
+
+            if (!terms) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Debes aceptar los términos y condiciones',
+                    confirmButtonColor: '#6b46c1'
+                });
+                return;
+            }
+
+            // Mostrar loader
+            Swal.fire({
+                title: 'Creando cuenta...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            try {
+                const response = await fetch('/.netlify/functions/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: correo,
+                        password: contraseña,
+                        name: nombre
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Error al crear la cuenta');
+                }
+
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Cuenta creada!',
+                    text: `Bienvenido ${nombre}, tu cuenta ha sido creada exitosamente`,
+                    confirmButtonColor: '#6b46c1'
+                }).then(() => {
+                    window.location.href = 'inicio_sesion.html';
+                });
+
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message,
+                    confirmButtonColor: '#6b46c1'
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

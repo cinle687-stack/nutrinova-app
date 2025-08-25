@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora IMC - NutriNova</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .headerbox {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .headerbox-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .headerbox-logo {
+            height: 120px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: linear-gradient(135deg, #6b46c1, #ec4899);
+            color: white;
+        }
+
+        .login-container {
+            display: flex;
+            min-height: 100vh;
+            margin-top: 120px;
+        }
+
+        .login-image {
+            flex: 1;
+            background: url('imc-imagen.jpg') center/cover no-repeat;
+            position: relative;
+        }
+
+        .login-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(107, 70, 193, 0.7), rgba(236, 72, 153, 0.7));
+        }
+
+        .calculator-form {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 60px;
+            background: white;
+        }
+
+        .form-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 16px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #6b46c1;
+            box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.1);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .input-group .form-group {
+            flex: 1;
+        }
+
+        .calculate-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #6b46c1, #ec4899);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        .calculate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(107, 70, 193, 0.4);
+        }
+
+        .result-container {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            display: none;
+        }
+
+        .result-imc {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .result-category {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .result-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .result-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6b46c1, #ec4899);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            color: white;
+        }
+
+        .imc-info {
+            background: linear-gradient(135deg, #f8f6ff, #fef7ff);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .imc-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .imc-ranges {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .range-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            border-left: 4px solid;
+        }
+
+        .range-bajo { border-left-color: #3498db; }
+        .range-normal { border-left-color: #2ecc71; }
+        .range-sobrepeso { border-left-color: #f39c12; }
+        .range-obesidad1 { border-left-color: #e74c3c; }
+        .range-obesidad2 { border-left-color: #8e44ad; }
+        .range-obesidad3 { border-left-color: #c0392b; }
+
+        .range-label {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .range-value {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .footerbox {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footerbox-p {
+            color: #fff;
+            margin: 0;
+        }
+
+        .footerbox-a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .login-container {
+                flex-direction: column;
+            }
+
+            .login-image {
+                height: 300px;
+            }
+
+            .calculator-form {
+                padding: 40px 30px;
+            }
+
+            .headerbox-logo {
+                height: 100px;
+            }
+
+            .form-title {
+                font-size: 2rem;
+            }
+
+            .input-group {
+                flex-direction: column;
+                gap: 0;
+            }
+
+            .result-actions {
+                flex-direction: column;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div class="headerbox">
+        <div class="headerbox-container">
+            <div class="headerbox-container-logo">
+                <a href="index.html">
+                    <img class="headerbox-logo" src="logo-nutrinova.png" alt="NutriNova Logo" />
+                </a>
+            </div>
+
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Inicio</a>
+                <a href="index.html#servicios" class="nav-link">Servicios</a>
+                <a href="index.html#contacto" class="nav-link">Contacto</a>
+                <a href="inicio_sesion.html" class="nav-link">Iniciar Sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- CALCULATOR CONTAINER -->
+    <div class="login-container">
+        <div class="login-image">
+             <img src="calculo.jpeg" alt="Imagen de Imc" style="width: 100%; height: 100%; object-fit: cover;">
+        </div>
+
+        <div class="calculator-form">
+            <h2 class="form-title">Calculadora de IMC</h2>
+            <p class="form-subtitle">Conoce tu Índice de Masa Corporal</p>
+
+            <!-- Información sobre IMC -->
+            <div class="imc-info">
+                <h3 class="imc-title">Rangos de IMC</h3>
+                <div class="imc-ranges">
+                    <div class="range-item range-bajo">
+                        <div class="range-label">Bajo peso</div>
+                        <div class="range-value">Menor a 18.5</div>
+                    </div>
+                    <div class="range-item range-normal">
+                        <div class="range-label">Normal</div>
+                        <div class="range-value">18.5 - 24.9</div>
+                    </div>
+                    <div class="range-item range-sobrepeso">
+                        <div class="range-label">Sobrepeso</div>
+                        <div class="range-value">25.0 - 29.9</div>
+                    </div>
+                    <div class="range-item range-obesidad1">
+                        <div class="range-label">Obesidad I</div>
+                        <div class="range-value">30.0 - 34.9</div>
+                    </div>
+                    <div class="range-item range-obesidad2">
+                        <div class="range-label">Obesidad II</div>
+                        <div class="range-value">35.0 - 39.9</div>
+                    </div>
+                    <div class="range-item range-obesidad3">
+                        <div class="range-label">Obesidad III</div>
+                        <div class="range-value">Mayor a 40</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario -->
+            <form id="imcForm">
+                <div class="input-group">
+                    <div class="form-group">
+                        <label for="peso" class="form-label">Peso (kg)</label>
+                        <input type="number" id="peso" name="peso" class="form-input" placeholder="Ej: 70" step="0.1" min="20" max="300" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="altura" class="form-label">Altura (cm)</label>
+                        <input type="number" id="altura" name="altura" class="form-input" placeholder="Ej: 170" step="0.1" min="100" max="250" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="calculate-btn">
+                    <i class="fas fa-calculator"></i> Calcular IMC
+                </button>
+            </form>
+
+            <!-- Resultado -->
+            <div class="result-container" id="resultContainer">
+                <div class="result-imc" id="resultIMC">0.0</div>
+                <div class="result-category" id="resultCategory">Categoría</div>
+                <div class="result-description" id="resultDescription">Descripción</div>
+                <div class="result-actions">
+                    <a href="registro.html" class="action-btn btn-primary">Crear Plan Nutricional</a>
+                    <button class="action-btn btn-secondary" onclick="resetCalculator()">Calcular Nuevamente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footerbox">
+        <div>
+            <p class="footerbox-p">
+                <a class="footerbox-a">Copyright © 2025&nbsp;&nbsp;&nbsp;</a>
+                <a class="footerbox-a">NUTRINOVA</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const imcCategories = {
+            bajoPeso: {
+                min: 0,
+                max: 18.5,
+                category: 'Bajo peso',
+                color: '#3498db',
+                description: 'Tu peso está por debajo del rango saludable. Es recomendable consultar con un profesional de la salud para aumentar de peso de manera saludable.',
+                recommendations: [
+                    'Aumenta el consumo de proteínas y carbohidratos saludables',
+                    'Come frecuentemente en porciones pequeñas',
+                    'Incluye frutos secos y semillas en tu dieta'
+                ]
+            },
+            normal: {
+                min: 18.5,
+                max: 25,
+                category: 'Peso normal',
+                color: '#2ecc71',
+                description: '¡Excelente! Tu peso se encuentra en el rango saludable. Mantén tus hábitos alimentarios y continúa con un estilo de vida activo.',
+                recommendations: [
+                    'Mantén una dieta balanceada y variada',
+                    'Realiza ejercicio regularmente',
+                    'Consume productos locales frescos de Cutervo'
+                ]
+            },
+            sobrepeso: {
+                min: 25,
+                max: 30,
+                category: 'Sobrepeso',
+                color: '#f39c12',
+                description: 'Tu peso está ligeramente por encima del rango saludable. Con algunos cambios en tu alimentación y ejercicio puedes alcanzar un peso más saludable.',
+                recommendations: [
+                    'Reduce el consumo de azúcares y grasas saturadas',
+                    'Aumenta el consumo de verduras y fibra',
+                    'Realiza actividad física moderada regularmente'
+                ]
+            },
+            obesidadI: {
+                min: 30,
+                max: 35,
+                category: 'Obesidad Grado I',
+                color: '#e74c3c',
+                description: 'Es importante tomar medidas para mejorar tu salud. Te recomendamos consultar con un profesional para crear un plan personalizado.',
+                recommendations: [
+                    'Consulta con un nutricionista',
+                    'Establece metas realistas de pérdida de peso',
+                    'Incorpora ejercicio de manera gradual'
+                ]
+            },
+            obesidadII: {
+                min: 35,
+                max: 40,
+                category: 'Obesidad Grado II',
+                color: '#8e44ad',
+                description: 'Es muy importante buscar ayuda profesional para mejorar tu salud y reducir riesgos asociados. Un plan integral te ayudará.',
+                recommendations: [
+                    'Busca ayuda médica y nutricional profesional',
+                    'Considera un plan de alimentación supervisado',
+                    'Evalúa opciones de tratamiento integral'
+                ]
+            },
+            obesidadIII: {
+                min: 40,
+                max: 100,
+                category: 'Obesidad Grado III',
+                color: '#c0392b',
+                description: 'Es fundamental buscar ayuda médica inmediata. Esta condición requiere atención profesional especializada para mejorar tu salud.',
+                recommendations: [
+                    'Consulta urgentemente con un médico especialista',
+                    'Considera opciones de tratamiento médico',
+                    'Busca apoyo psicológico si es necesario'
+                ]
+            }
+        };
+
+        document.getElementById('imcForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const peso = parseFloat(document.getElementById('peso').value);
+            const alturaCm = parseFloat(document.getElementById('altura').value);
+            
+            // Validaciones
+            if (!peso || !alturaCm) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Por favor completa todos los campos',
+                    confirmButtonColor: '#6b46c1'
+                });
+                return;
+            }
+
+            if (peso < 20 || peso > 300) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Peso inválido',
+                    text: 'El peso debe estar entre 20 kg y 300 kg',
+                    confirmButtonColor: '#6b46c1'
+                });
+                return;
+            }
+
+            if (alturaCm < 100 || alturaCm > 250) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Altura inválida',
+                    text: 'La altura debe estar entre 100 cm y 250 cm',
+                    confirmButtonColor: '#6b46c1'
+                });
+                return;
+            }
+
+            // Calcular IMC
+            const alturaM = alturaCm / 100;
+            const imc = peso / (alturaM * alturaM);
+            
+            // Determinar categoría
+            const categoria = determinarCategoria(imc);
+            
+            // Mostrar resultado
+            mostrarResultado(imc, categoria);
+            
+            // Guardar en localStorage para usar en la encuesta
+            localStorage.setItem('imcCalculado', imc.toFixed(1));
+            localStorage.setItem('imcCategoria', getCategoriaKey(imc));
+        });
+
+        function determinarCategoria(imc) {
+            for (const [key, data] of Object.entries(imcCategories)) {
+                if (imc >= data.min && imc < data.max) {
+                    return data;
+                }
+            }
+            return imcCategories.obesidadIII; // Para casos extremos
+        }
+
+        function getCategoriaKey(imc) {
+            if (imc < 18.5) return 'bajo-peso';
+            else if (imc < 25) return 'normal';
+            else if (imc < 30) return 'sobrepeso';
+            else if (imc < 35) return 'obesidad-i';
+            else if (imc < 40) return 'obesidad-ii';
+            else return 'obesidad-iii';
+        }
+
+        function mostrarResultado(imc, categoria) {
+            // Mostrar contenedor de resultado
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.style.display = 'block';
+            resultContainer.style.background = categoria.color + '15';
+            resultContainer.style.border = `2px solid ${categoria.color}`;
+
+            // Actualizar valores
+            document.getElementById('resultIMC').textContent = imc.toFixed(1);
+            document.getElementById('resultIMC').style.color = categoria.color;
+            
+            document.getElementById('resultCategory').textContent = categoria.category;
+            document.getElementById('resultCategory').style.color = categoria.color;
+            
+            document.getElementById('resultDescription').textContent = categoria.description;
+
+            // Scroll suave al resultado
+            resultContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Mostrar recomendaciones con SweetAlert
+            setTimeout(() => {
+                const recommendationsHtml = categoria.recommendations
+                    .map(rec => `<li style="text-align: left; margin-bottom: 8px;">${rec}</li>`)
+                    .join('');
+
+                Swal.fire({
+                    title: 'Recomendaciones Personalizadas',
+                    html: `<ul style="padding-left: 20px;">${recommendationsHtml}</ul>`,
+                    icon: 'info',
+                    confirmButtonColor: categoria.color,
+                    confirmButtonText: 'Entendido'
+                });
+            }, 1000);
+        }
+
+        function resetCalculator() {
+            document.getElementById('imcForm').reset();
+            document.getElementById('resultContainer').style.display = 'none';
+            
+            // Scroll al formulario
+            document.getElementById('imcForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Permitir solo números en los inputs
+        document.getElementById('peso').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9.]/g, '');
+        });
+
+        document.getElementById('altura').addEventListener('input', function(e) {
+            this.value = this.value.replace(/[^0-9.]/g, '');
+        });
+    </script>
+</body>
+
+</html>

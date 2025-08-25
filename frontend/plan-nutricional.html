@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Plan Nutricional - NutriNova</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; line-height: 1.6; color: #333; background-color: #f8f9fa; }
+    .headerbox { background-color: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); padding: 20px 0; position: fixed; width: 100%; top: 0; z-index: 1000; }
+    .headerbox-container { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 40px; }
+    .headerbox-logo { height: 100px; width: auto; }
+    .back-btn { background: linear-gradient(135deg, #6b46c1, #ec4899); color: white; padding: 10px 20px; border: none; border-radius: 20px; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.3s ease; }
+    .back-btn:hover { transform: translateY(-2px); color: white; }
+    .plan-container { max-width: 1200px; margin: 0 auto; padding: 140px 40px 80px; }
+    .plan-header { text-align: center; margin-bottom: 50px; }
+    .plan-title { font-size: 2.5rem; font-weight: 700; color: #333; margin-bottom: 20px; }
+    .plan-subtitle { font-size: 1.2rem; color: #666; margin-bottom: 30px; }
+    .user-info-card { background: linear-gradient(135deg, #6b46c1, #ec4899); color: white; padding: 30px; border-radius: 20px; margin-bottom: 40px; text-align: center; }
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+    .info-item { text-align: center; }
+    .info-label { font-weight: 600; margin-bottom: 5px; }
+    .info-value { font-size: 1.1rem; }
+    .section-card { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); margin-bottom: 30px; }
+    .section-title { font-size: 1.8rem; font-weight: 700; color: #333; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+    .section-icon { color: #6b46c1; font-size: 2rem; }
+    .meal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px; }
+    .meal-card { background: #f8f9fa; padding: 20px; border-radius: 15px; border-left: 4px solid #6b46c1; }
+    .meal-title { font-weight: 700; color: #333; margin-bottom: 15px; font-size: 1.2rem; }
+    .meal-items { list-style: none; padding: 0; }
+    .meal-items li { padding: 5px 0; border-bottom: 1px solid #e9ecef; }
+    .meal-items li:last-child { border-bottom: none; }
+    .recommendations { background: linear-gradient(135deg, #f8f6ff, #fef7ff); padding: 20px; border-radius: 15px; border: 2px solid #e9ecef; }
+    .recommendation-item { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+    .recommendation-item i { color: #6b46c1; font-size: 1.2rem; }
+    .local-products { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px; }
+    .product-item { background: linear-gradient(135deg, #6b46c1, #ec4899); color: white; padding: 15px; border-radius: 10px; text-align: center; font-weight: 600; }
+    .warning-box { background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 20px; border-radius: 10px; margin-bottom: 30px; }
+    .footerbox { background-color: #333; padding: 20px; text-align: center; }
+    .footerbox-p { color: #fff; margin: 0; }
+    .footerbox-a { color: #fff; text-decoration: none; }
+    @media (max-width: 768px) {
+      .plan-container { padding: 120px 20px 50px; }
+      .plan-title { font-size: 2rem; }
+      .meal-grid { grid-template-columns: 1fr; }
+      .info-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <div class="headerbox">
+    <div class="headerbox-container">
+      <div class="headerbox-container-logo">
+        <a href="dashboard.html">
+          <img class="headerbox-logo" src="logo-nutrinova.png" alt="NutriNova Logo" />
+        </a>
+      </div>
+      <a href="dashboard.html" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Volver
+      </a>
+    </div>
+  </div>
+
+  <!-- PLAN CONTENT -->
+  <div class="plan-container">
+    <div class="plan-header">
+      <h1 class="plan-title">Tu Plan Nutricional Personalizado</h1>
+      <p class="plan-subtitle">Formato general con productos locales de Cutervo</p>
+    </div>
+
+    <!-- User Info Card -->
+    <div class="user-info-card">
+      <h3><i class="fas fa-user"></i> Tu Perfil Nutricional</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">IMC:</div>
+          <div class="info-value" id="userIMC">-</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Objetivo:</div>
+          <div class="info-value" id="userObjetivo">-</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Edad:</div>
+          <div class="info-value" id="userEdad">-</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Actividad:</div>
+          <div class="info-value" id="userActividad">-</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Preferencia:</div>
+          <div class="info-value" id="userProductos">-</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Warning if needed -->
+    <div class="warning-box" id="warningBox" style="display: none;">
+      <strong><i class="fas fa-exclamation-triangle"></i> Importante:</strong>
+      <span id="warningText"></span>
+    </div>
+
+    <!-- Daily Meal Plan -->
+    <div class="section-card">
+      <h2 class="section-title">
+        <i class="fas fa-utensils section-icon"></i>
+        Plan Alimentario Diario
+      </h2>
+      <div class="meal-grid" id="mealPlan"></div>
+    </div>
+
+    <!-- Local Products -->
+    <div class="section-card">
+      <h2 class="section-title">
+        <i class="fas fa-seedling section-icon"></i>
+        Productos Locales Considerados
+      </h2>
+      <div class="local-products" id="localProducts"></div>
+    </div>
+
+    <!-- Recommendations -->
+    <div class="section-card">
+      <h2 class="section-title">
+        <i class="fas fa-lightbulb section-icon"></i>
+        Recomendaciones Personalizadas
+      </h2>
+      <div class="recommendations" id="recommendations"></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footerbox">
+    <div>
+      <p class="footerbox-p">
+        <a class="footerbox-a">Copyright © 2025&nbsp;&nbsp;&nbsp;</a>
+        <a class="footerbox-a">NUTRINOVA</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // ======================
+    // BASE DE PRODUCTOS (GENERAL CUTERVO)
+    // ======================
+    const BASE_PRODUCTOS = {
+      tuberculosCereales: ['Papa', 'Maíz', 'Yuca', 'Olluco', 'Oca', 'Zapallo'],
+      proteinas: ['Cuy', 'Cerdo', 'Pato', 'Pollo', 'Conejo', 'Pescado'],
+      legumbres: ['Habas', 'Arveja', 'Frijol'],
+      frutas: ['Naranjas', 'Chirimoya', 'Palta', 'Yacón', 'Bituca', 'Chiuche', 'Plátano'], // Se incluye plátano por pedido del usuario
+      bebidas: ['Leche', 'Café', 'Manzanilla']
+    };
+
+    function renderProductos() {
+      const lista = [
+        'Habas', 'Olluco', 'Cuy', 'Arveja', 'Oca', 'Naranjas', 'Chirimoya', 'Palta', 'Papa', 'Maíz', 'Frijol',
+        'Leche', 'Café', 'Yuca', 'Cerdo', 'Pato', 'Pollo', 'Conejo', 'Pescado', 'Yacón', 'Bituca', 'Chiuche', 'Zapallo', 'Manzanilla', 'Plátano'
+      ];
+      document.getElementById('localProducts').innerHTML = lista.map(p => `<div class="product-item">${p}</div>`).join('');
+    }
+
+    // ======================
+    // LÓGICA DE PERFIL Y CALORÍAS
+    // ======================
+    const factorCalorico = {
+      'bajo-peso': { base: 2000, factor: 1.2 },
+      'normal': { base: 1800, factor: 1.0 },
+      'sobrepeso': { base: 1500, factor: 0.85 },
+      'obesidad-i': { base: 1400, factor: 0.8 },
+      'obesidad-ii': { base: 1300, factor: 0.75 },
+      'obesidad-iii': { base: 1200, factor: 0.7 }
+    };
+    const factorActividad = { 'sedentario': 0.9, 'ligero': 1.0, 'moderado': 1.1, 'intenso': 1.3 };
+    const factorEdad = { '18-35': 1.0, '36-55': 0.95, '56-75': 0.9, 'mayor-75': 0.85 };
+
+    function calcularCalorias(imc, actividad, edad, objetivo) {
+      let base = (factorCalorico[imc]?.base) ?? 1800;
+      let factor = (factorCalorico[imc]?.factor) ?? 1.0;
+      factor *= (factorActividad[actividad] ?? 1.0);
+      factor *= (factorEdad[edad] ?? 1.0);
+      if (objetivo === 'bajar-peso') factor *= 0.9;
+      else if (objetivo === 'ganar-musculo') factor *= 1.15;
+      return Math.round(base * factor);
+    }
+
+    // ======================
+    // RECETAS (EVITANDO COMBINACIONES PESADAS)
+    // Todas las recetas usan sólo los productos listados
+    // ======================
+    const RECETAS = {
+      desayuno: [
+        { nombre: 'Plátano sancochado con queso fresco', items: ['Plátano (1 mediano)', 'Queso fresco (30 g)', 'Café (1 taza)'] },
+        { nombre: 'Papa con huevo duro', items: ['Papa sancochada (150 g)', 'Huevo duro (1 u)', 'Café o manzanilla (1 taza)'] },
+        { nombre: 'Yuca con palta', items: ['Yuca sancochada (150 g)', 'Palta (1/3 u)', 'Café (1 taza)'] },
+        { nombre: 'Mote de maíz con queso', items: ['Maíz cocido (mote, 3/4 taza)', 'Queso fresco (30 g)', 'Manzanilla (1 taza)'] },
+        { nombre: 'Oca horneada con naranja', items: ['Oca (150 g)', 'Naranja (1 u)', 'Café o manzanilla (1 taza)'] },
+        { nombre: 'Olluco con huevo a la plancha', items: ['Olluco salteado (1 taza)', 'Huevo (1 u)', 'Café (1 taza)'] },
+        { nombre: 'Zapallo sancochado con queso', items: ['Zapallo (1 taza)', 'Queso fresco (25-30 g)', 'Manzanilla (1 taza)'] }
+      ],
+      almuerzo: [
+        { nombre: 'Cuy al horno con papa y ensalada de palta-naranja', items: ['Cuy al horno (120-150 g)', 'Papa sancochada (150 g)', 'Palta y gajos de naranja'] },
+        { nombre: 'Pollo guisado con arveja y maíz', items: ['Pollo (150 g)', 'Arveja guisada (3/4 taza)', 'Maíz cocido (1/2 taza)'] },
+        { nombre: 'Cerdo estofado con oca y habas', items: ['Cerdo (120-150 g)', 'Oca sancochada (150 g)', 'Habas guisadas (1/2 taza)'] },
+        { nombre: 'Pescado sudado con yuca y palta', items: ['Pescado (150 g) sudado', 'Yuca sancochada (150 g)', 'Palta (1/3 u)'] },
+        { nombre: 'Conejo estofado con olluco y frijol', items: ['Conejo (120-150 g)', 'Olluco (1 taza)', 'Frijol guisado (1/2 taza)'] },
+        { nombre: 'Pato guisado con maíz y zapallo', items: ['Pato (120-150 g)', 'Maíz cocido (1/2 taza)', 'Zapallo en dados (1 taza)'] }
+      ],
+      cena: [
+        { nombre: 'Crema de zapallo con pollo y maíz', items: ['Zapallo licuado en agua (1 taza)', 'Pollo deshilachado (80-100 g)', 'Maíz cocido (1/3 taza)'] },
+        { nombre: 'Guiso de arvejas con huevo y yuca', items: ['Arveja guisada (3/4 taza)', 'Huevo duro (1 u)', 'Yuca pequeña (100 g)'] },
+        { nombre: 'Pescado a la plancha con papa y habas', items: ['Pescado (100-120 g)', 'Papa sancochada (120 g)', 'Habas salteadas (1/3 taza)'] },
+        { nombre: 'Pollo a la plancha con oca y palta', items: ['Pollo (100-120 g)', 'Oca sancochada (120 g)', 'Palta (1/4 u)'] },
+        { nombre: 'Frijoles guisados con maíz y huevo', items: ['Frijol guisado (3/4 taza)', 'Maíz cocido (1/3 taza)', 'Huevo (1 u)'] }
+      ],
+      colacion: [
+        { nombre: 'Chirimoya fresca', items: ['Chirimoya (1 porción)'] },
+        { nombre: 'Naranja + infusión', items: ['Naranja (1 u)', 'Manzanilla (1 taza)'] },
+        { nombre: 'Yacón en rodajas', items: ['Yacón (1 porción)'] },
+        { nombre: 'Bituca o Chiuche', items: ['Porción pequeña (1)'] },
+        { nombre: 'Palta pequeña', items: ['Palta (1/2 u)'] },
+        { nombre: 'Leche (vaso)', items: ['Leche (1 vaso)'] } // Nunca combinada con chirimoya aquí
+      ]
+    };
+
+    function rnd(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+
+    function generarPlanDiario(calorias) {
+      const desayuno = rnd(RECETAS.desayuno);
+      const almuerzo = rnd(RECETAS.almuerzo);
+      const cena = rnd(RECETAS.cena);
+      const colacion = rnd(RECETAS.colacion);
+      return {
+        desayuno, almuerzo, cena, colacion,
+        kcal: {
+          desayuno: Math.round(calorias * 0.25),
+          almuerzo: Math.round(calorias * 0.40),
+          cena: Math.round(calorias * 0.30),
+          colacion: Math.round(calorias * 0.05)
+        }
+      };
+    }
+
+    function generarRecomendaciones({ imc, objetivo }) {
+      const rec = [];
+      rec.push('Prefiere preparaciones caseras: sudados, estofados, sancochados.');
+      rec.push('Usa porciones moderadas de tubérculos/maíz; incluye legumbres (habas, arveja, frijol).');
+      if (imc === 'sobrepeso' && objetivo === 'bajar-peso') {
+        rec.push('Aumenta legumbres y verduras; reduce tubérculos por la noche.');
+        rec.push('Prioriza pescado, pollo o conejo; evita frituras.');
+      }
+      if (objetivo === 'ganar-musculo') {
+        rec.push('Incluye proteína en cada comida (cuy, pollo, pescado, cerdo magro).');
+        rec.push('Acompaña con papa, yuca, oca u olluco para energía.');
+      }
+      rec.push('Evita combinar leche con chirimoya en la misma comida.');
+      rec.push('Hidrátate; usa manzanilla por la noche para mejor digestión.');
+      return rec;
+    }
+
+    function generarPlan() {
+      const respuestas = {
+        imc: localStorage.getItem('imc') || 'normal',
+        objetivo: localStorage.getItem('objetivo') || 'mantener-peso',
+        edad: localStorage.getItem('edad') || '18-35',
+        actividad: localStorage.getItem('actividad-fisica') || 'moderado',
+        productos: localStorage.getItem('productos-locales') || 'variado'
+      };
+
+      document.getElementById('userIMC').textContent = respuestas.imc.replace(/-/g, ' ').toUpperCase();
+      document.getElementById('userObjetivo').textContent = respuestas.objetivo.replace(/-/g, ' ').toUpperCase();
+      document.getElementById('userEdad').textContent = respuestas.edad + ' años';
+      document.getElementById('userActividad').textContent = respuestas.actividad.replace(/-/g, ' ').toUpperCase();
+      document.getElementById('userProductos').textContent = respuestas.productos.replace(/-/g, ' ').toUpperCase();
+
+      const calorias = calcularCalorias(respuestas.imc, respuestas.actividad, respuestas.edad, respuestas.objetivo);
+      const plan = generarPlanDiario(calorias);
+
+      const mealPlanHtml = `
+        <div class="meal-card">
+          <div class="meal-title">🌅 Desayuno (${plan.kcal.desayuno} kcal) – ${plan.desayuno.nombre}</div>
+          <ul class="meal-items">${plan.desayuno.items.map(i => `<li>${i}</li>`).join('')}</ul>
+        </div>
+        <div class="meal-card">
+          <div class="meal-title">🍽️ Almuerzo (${plan.kcal.almuerzo} kcal) – ${plan.almuerzo.nombre}</div>
+          <ul class="meal-items">${plan.almuerzo.items.map(i => `<li>${i}</li>`).join('')}</ul>
+        </div>
+        <div class="meal-card">
+          <div class="meal-title">🌙 Cena (${plan.kcal.cena} kcal) – ${plan.cena.nombre}</div>
+          <ul class="meal-items">${plan.cena.items.map(i => `<li>${i}</li>`).join('')}</ul>
+        </div>
+        <div class="meal-card">
+          <div class="meal-title">🍎 Colación (${plan.kcal.colacion} kcal) – ${plan.colacion.nombre}</div>
+          <ul class="meal-items">${plan.colacion.items.map(i => `<li>${i}</li>`).join('')}</ul>
+        </div>`;
+
+      document.getElementById('mealPlan').innerHTML = mealPlanHtml;
+
+      renderProductos();
+
+      const recomendaciones = generarRecomendaciones(respuestas);
+      document.getElementById('recommendations').innerHTML = recomendaciones.map(r => `<div class="recommendation-item"><i class="fas fa-check-circle"></i> ${r}</div>`).join('');
+
+      mostrarAdvertencias(respuestas.imc);
+    }
+
+    function mostrarAdvertencias(imc) {
+      const warningBox = document.getElementById('warningBox');
+      const warningText = document.getElementById('warningText');
+      if (imc.includes('obesidad') || imc === 'bajo-peso') {
+        warningBox.style.display = 'block';
+        warningText.textContent = 'Se recomienda consultar con un profesional de la salud antes de seguir cualquier plan nutricional.';
+      }
+    }
+
+    window.onload = generarPlan;
+  </script>
+</body>
+</html>

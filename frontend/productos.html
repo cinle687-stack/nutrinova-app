@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productos Locales - NutriNova</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .headerbox {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .headerbox-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .headerbox-logo {
+            height: 120px;
+            width: auto;
+        }
+
+        .headerbox-container-a {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            justify-content: center;
+        }
+
+        .headerbox-a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 600;
+            font-size: 20px;
+            margin: 0 15px;
+            transition: color 0.3s ease;
+        }
+
+        .headerbox-a:hover {
+            color: #6b46c1;
+        }
+
+        .headerbox-a-btn {
+            background: linear-gradient(135deg, #f97316, #ec4899);
+            color: white;
+            padding: 12px 28px;
+            border: none;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+        }
+
+        .headerbox-a-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+            color: white;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 150px 40px 80px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .page-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .products-section {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-bottom: 60px;
+        }
+
+        .section-header {
+            background: linear-gradient(135deg, #6b46c1, #ec4899);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+
+        .section-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 40px;
+        }
+
+        .product-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            border-color: #6b46c1;
+        }
+
+        .product-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .product-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .product-benefits {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .benefits-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #6b46c1;
+            margin-bottom: 8px;
+        }
+
+        .benefits-list {
+            font-size: 0.85rem;
+            color: #555;
+            list-style: none;
+            padding: 0;
+        }
+
+        .benefits-list li {
+            padding: 2px 0;
+        }
+
+        .benefits-list li:before {
+            content: "✓";
+            color: #28a745;
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .search-filter {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #6b46c1;
+            box-shadow: 0 0 0 3px rgba(107, 70, 193, 0.1);
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: linear-gradient(135deg, #6b46c1, #ec4899);
+            color: white;
+            border-color: #6b46c1;
+        }
+
+        .footerbox {
+            background-color: #333;
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        .footerbox-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-container {
+                padding: 130px 20px 50px;
+            }
+
+            .page-title {
+                font-size: 2.2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                padding: 30px 20px;
+            }
+
+            .section-header {
+                padding: 25px 20px;
+            }
+
+            .headerbox-container-a {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HEADER -->
+    <div class="headerbox">
+        <div class="headerbox-container">
+            <div class="headerbox-container-logo">
+                <a href="index.html">
+                    <img class="headerbox-logo" src="logo-nutrinova.png" alt="NutriNova Logo" />
+                </a>
+            </div>
+
+            <div class="headerbox-container-a">
+                <a href="index.html" class="headerbox-a">Inicio</a>
+                <a href="index.html#servicios" class="headerbox-a">Servicios</a>
+                <a href="productos.html" class="headerbox-a" style="color: #6b46c1;">Productos</a>
+                <a href="index.html#nosotros" class="headerbox-a">Nosotros</a>
+                <a href="index.html#testimonios" class="headerbox-a">Testimonios</a>
+                <a href="index.html#contacto" class="headerbox-a">Contacto</a>
+            </div>
+
+            <a href="inicio_sesion.html" class="headerbox-a-btn">Iniciar Sesión</a>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-container">
+        <div class="page-header">
+            <h1 class="page-title">Productos Locales de Cutervo</h1>
+            <p class="page-subtitle">
+                Descubre la riqueza nutricional de los alimentos nativos de nuestra provincia. 
+                Productos únicos llenos de sabor y beneficios para tu salud.
+            </p>
+        </div>
+
+        <!-- Filtro de búsqueda -->
+        <div class="search-filter">
+            <input type="text" class="search-input" id="searchInput" placeholder="Busca un producto específico...">
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterCategory('all')">Todos</button>
+                <button class="filter-btn" onclick="filterCategory('tuberculos')">Tubérculos</button>
+                <button class="filter-btn" onclick="filterCategory('cereales')">Cereales</button>
+                <button class="filter-btn" onclick="filterCategory('frutas')">Frutas</button>
+                <button class="filter-btn" onclick="filterCategory('proteinas')">Proteínas</button>
+                <button class="filter-btn" onclick="filterCategory('lacteos')">Lácteos</button>
+            </div>
+        </div>
+
+        <!-- Productos de Cutervo -->
+        <div class="products-section">
+            <div class="section-header">
+                <h2 class="section-name">Productos Locales de Cutervo</h2>
+                <p class="section-description">Alimentos tradicionales ricos en nutrientes y sabor auténtico</p>
+            </div>
+            <div class="products-grid">
+                <!-- Tubérculos -->
+                <div class="product-card" data-category="tuberculos">
+                    <span class="product-icon">🥔</span>
+                    <h3 class="product-name">Papa</h3>
+                    <p class="product-description">
+                        Tubérculo ancestral rico en carbohidratos complejos y vitamina C. Base fundamental de la alimentación local.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Alto contenido en potasio</li>
+                            <li>Fuente de vitamina C</li>
+                            <li>Energía de liberación lenta</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="tuberculos">
+                    <span class="product-icon">🌿</span>
+                    <h3 class="product-name">Yuca</h3>
+                    <p class="product-description">
+                        Raíz tropical rica en almidón y fibra. Excelente fuente de energía natural y muy versátil en la cocina.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Carbohidratos de fácil digestión</li>
+                            <li>Libre de gluten</li>
+                            <li>Rico en vitamina C</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="tuberculos">
+                    <span class="product-icon">🟡</span>
+                    <h3 class="product-name">Olluco</h3>
+                    <p class="product-description">
+                        Tubérculo andino colorido y nutritivo. Rica fuente de carbohidratos y con propiedades medicinales tradicionales.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Alto en fibra</li>
+                            <li>Antioxidantes naturales</li>
+                            <li>Minerales esenciales</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="tuberculos">
+                    <span class="product-icon">🔴</span>
+                    <h3 class="product-name">Oca</h3>
+                    <p class="product-description">
+                        Tubérculo dulce andino con alto contenido nutricional. Tradicionalmente consumido en diversas preparaciones.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Vitamina C concentrada</li>
+                            <li>Carbohidratos naturales</li>
+                            <li>Propiedades digestivas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="tuberculos">
+                    <span class="product-icon">🥬</span>
+                    <h3 class="product-name">Yacón</h3>
+                    <p class="product-description">
+                        Raíz dulce y crujiente, conocida por sus propiedades prebióticas y bajo índice glicémico.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Prebiótico natural</li>
+                            <li>Bajo índice glicémico</li>
+                            <li>Ayuda digestión</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Cereales y Legumbres -->
+                <div class="product-card" data-category="cereales">
+                    <span class="product-icon">🌽</span>
+                    <h3 class="product-name">Maíz</h3>
+                    <p class="product-description">
+                        Cereal básico de la alimentación local, rico en fibra y antioxidantes. Base para diversas preparaciones tradicionales.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Rico en fibra dietética</li>
+                            <li>Antioxidantes naturales</li>
+                            <li>Energía de calidad</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="cereales">
+                    <span class="product-icon">🫛</span>
+                    <h3 class="product-name">Frijol</h3>
+                    <p class="product-description">
+                        Legumbre rica en proteínas vegetales y fibra. Fundamental en la dieta tradicional de Cutervo.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Proteína vegetal completa</li>
+                            <li>Alto en fibra</li>
+                            <li>Hierro y folatos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="cereales">
+                    <span class="product-icon">🫘</span>
+                    <h3 class="product-name">Habas</h3>
+                    <p class="product-description">
+                        Legumbre tradicional rica en proteínas vegetales y fibra. Especialmente tiernas y sabrosas en la región.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Proteína vegetal de calidad</li>
+                            <li>Alto contenido en hierro</li>
+                            <li>Fibra para digestión</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="cereales">
+                    <span class="product-icon">🟢</span>
+                    <h3 class="product-name">Arveja</h3>
+                    <p class="product-description">
+                        Legumbre verde rica en proteínas y vitaminas. Consumida fresca o seca en diversas preparaciones.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Proteína vegetal</li>
+                            <li>Vitaminas del complejo B</li>
+                            <li>Fibra dietética</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Frutas -->
+                <div class="product-card" data-category="frutas">
+                    <span class="product-icon">🍊</span>
+                    <h3 class="product-name">Naranjas</h3>
+                    <p class="product-description">
+                        Fruta cítrica rica en vitamina C y antioxidantes. Las naranjas de Cutervo son especialmente jugosas y dulces.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Alta en vitamina C</li>
+                            <li>Antioxidantes naturales</li>
+                            <li>Fortalece sistema inmune</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="frutas">
+                    <span class="product-icon">🥑</span>
+                    <h3 class="product-name">Palta</h3>
+                    <p class="product-description">
+                        Fruto cremoso rico en grasas saludables y vitaminas. La palta local tiene excelente textura y sabor.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Grasas monoinsaturadas</li>
+                            <li>Vitamina E</li>
+                            <li>Potasio y fibra</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="frutas">
+                    <span class="product-icon">🍃</span>
+                    <h3 class="product-name">Chirimoya</h3>
+                    <p class="product-description">
+                        Fruta dulce y cremosa conocida como "la reina de las frutas". Rica en vitaminas y minerales.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Vitamina C y B6</li>
+                            <li>Fibra natural</li>
+                            <li>Antioxidantes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="frutas">
+                    <span class="product-icon">🔵</span>
+                    <h3 class="product-name">Bituca</h3>
+                    <p class="product-description">
+                        Fruta local pequeña pero muy nutritiva, con sabor único y propiedades antioxidantes concentradas.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Antioxidantes concentrados</li>
+                            <li>Vitaminas naturales</li>
+                            <li>Fibra digestiva</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="frutas">
+                    <span class="product-icon">🟠</span>
+                    <h3 class="product-name">Chiuche</h3>
+                    <p class="product-description">
+                        Fruta tradicional de la región con sabor distintivo y alto contenido nutricional.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Vitaminas locales</li>
+                            <li>Minerales esenciales</li>
+                            <li>Sabor único</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="frutas">
+                    <span class="product-icon">🎃</span>
+                    <h3 class="product-name">Zapallo</h3>
+                    <p class="product-description">
+                        Calabaza local rica en betacarotenos y fibra. Versátil para preparaciones dulces y saladas.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Betacarotenos (Vitamina A)</li>
+                            <li>Fibra digestiva</li>
+                            <li>Minerales esenciales</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Proteínas -->
+                <div class="product-card" data-category="proteinas">
+                    <span class="product-icon">🐹</span>
+                    <h3 class="product-name">Cuy</h3>
+                    <p class="product-description">
+                        Proteína ancestral de alta calidad, considerada un superalimento andino. Tierno y muy nutritivo.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Proteína magra de alta calidad</li>
+                            <li>Bajo en grasa saturada</li>
+                            <li>Rico en vitaminas del complejo B</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="proteinas">
+                    <span class="product-icon">🥩</span>
+                    <h3 class="product-name">Cerdo</h3>
+                    <p class="product-description">
+                        Carne de cerdo criado de forma tradicional. Proteína de calidad con sabor característico de la región.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Proteína completa</li>
+                            <li>Hierro y zinc</li>
+                            <li>Vitaminas B1 y B12</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="proteinas">
+                    <span class="product-icon">🦆</span>
+                    <h3 class="product-name">Pato</h3>
+                    <p class="product-description">
+                        Ave de corral criada localmente. Carne sabrosa y nutritiva, tradicional en festividades.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Proteína de alta calidad</li>
+                            <li>Hierro hemo</li>
+                            <li>Vitaminas del grupo B</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="proteinas">
+                    <span class="product-icon">🐔</span>
+                    <h3 class="product-name">Pollo</h3>
+                    <p class="product-description">
+                        Pollo de corral criado de forma natural. Proteína magra y versátil para múltiples preparaciones.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Proteína magra</li>
+                            <li>Bajo en grasa</li>
+                            <li>Rica en niacina</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="proteinas">
+                    <span class="product-icon">🐰</span>
+                    <h3 class="product-name">Conejo</h3>
+                    <p class="product-description">
+                        Carne blanca muy nutritiva y digestiva. Proteína magra ideal para dietas saludables.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Proteína muy magra</li>
+                            <li>Fácil digestión</li>
+                            <li>Bajo en colesterol</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="proteinas">
+                    <span class="product-icon">🐟</span>
+                    <h3 class="product-name">Pescado</h3>
+                    <p class="product-description">
+                        Pescado fresco de ríos locales. Rico en omega-3 y proteínas de fácil digestión.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Ácidos grasos omega-3</li>
+                            <li>Proteína fácil de digerir</li>
+                            <li>Fósforo para el cerebro</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Lácteos y Bebidas -->
+                <div class="product-card" data-category="lacteos">
+                    <span class="product-icon">🥛</span>
+                    <h3 class="product-name">Leche</h3>
+                    <p class="product-description">
+                        Leche fresca de ganado local criado en pasturas naturales. Rica en calcio y proteínas de calidad.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Calcio para huesos fuertes</li>
+                            <li>Proteína completa</li>
+                            <li>Vitaminas A y D</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="lacteos">
+                    <span class="product-icon">☕</span>
+                    <h3 class="product-name">Café</h3>
+                    <p class="product-description">
+                        Café de altura cultivado orgánicamente. Reconocido por su aroma excepcional y notas frutales únicas.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Antioxidantes naturales</li>
+                            <li>Estimulante natural</li>
+                            <li>Sin pesticidas químicos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="lacteos">
+                    <span class="product-icon">🌼</span>
+                    <h3 class="product-name">Manzanilla</h3>
+                    <p class="product-description">
+                        Hierba medicinal tradicional cultivada localmente. Conocida por sus propiedades relajantes y digestivas.
+                    </p>
+                    <div class="product-benefits">
+                        <div class="benefits-title">Beneficios:</div>
+                        <ul class="benefits-list">
+                            <li>Propiedades relajantes</li>
+                            <li>Ayuda digestión</li>
+                            <li>Antioxidantes naturales</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footerbox">
+        <div class="footerbox-content">
+            <h4 style="margin-bottom: 20px;">NutriNova - Nutrición con Productos Locales</h4>
+            <p style="margin-bottom: 15px;">
+                Promovemos el consumo de productos locales de Cutervo para una alimentación saludable y sostenible.
+            </p>
+            <div style="margin-top: 30px;">
+                <p>© 2025 NutriNova. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Funcionalidad de filtrado por categoría
+        function filterCategory(category) {
+            const cards = document.querySelectorAll('.product-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+            
+            // Actualizar botones activos
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filtrar productos
+            cards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Funcionalidad de búsqueda
+        document.getElementById('searchInput').addEventListener('input', function (e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const productCards = document.querySelectorAll('.product-card');
+
+            productCards.forEach(card => {
+                const productName = card.querySelector('.product-name').textContent.toLowerCase();
+                const productDescription = card.querySelector('.product-description').textContent.toLowerCase();
+
+                if (productName.includes(searchTerm) || productDescription.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Si no hay término de búsqueda, mostrar todos
+            if (searchTerm === '') {
+                productCards.forEach(card => {
+                    card.style.display = 'block';
+                });
+            }
+        });
+
+        // Smooth scroll para navegación
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
