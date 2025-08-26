@@ -304,15 +304,115 @@
             window.location.href = 'pregunta5.html';
         }
 
-        function goToNextPage() {
-            if (selectedValue) {
-                // Guardar la respuesta
-                localStorage.setItem('productos-locales', selectedValue);
+        async function goToNextPage() {
+            if (!selectedValue) return;
 
-                // Marcar encuesta como completada
+            // Guardar respuesta localmente
+            localStorage.setItem('productos-locales', selectedValue);
+
+            // Obtener token de autenticación
+            const token = localStorage.getItem('auth_token');
+            
+            if (!token) {
+                console.error('No hay token de autenticación');
+                // Si no hay token, usar el método anterior (solo localStorage)
                 localStorage.setItem('encuestaCompletada', 'true');
+                Swal.fire({
+                    icon: 'success',
+                    title: '¡Encuesta Completada!',
+                    text: 'Tu plan nutricional personalizado ha sido generado exitosamente',
+                    confirmButtonColor: '#6b46c1'
+                }).then(() => {
+                    window.location.href = 'plan-nutricional.html';
+                });
+                return;
+            }
 
-                // SweetAlert de éxito
+            // Mostrar loading
+            Swal.fire({
+                title: 'Completando encuesta...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
+            try {
+                // Recopilar todas las respuestas de la encuesta
+                const respuestasEncuesta = [
+                    {
+                        question: 'Objetivo principal',
+                        answer: localStorage.getItem('objetivo-principal') || ''
+                    },
+                    {
+                        question: 'Peso actual',
+                        answer: localStorage.getItem('peso-actual') || ''
+                    },
+                    {
+                        question: 'Altura',
+                        answer: localStorage.getItem('altura') || ''
+                    },
+                    {
+                        question: 'Nivel de actividad',
+                        answer: localStorage.getItem('nivel-actividad') || ''
+                    },
+                    {
+                        question: 'Restricciones alimentarias',
+                        answer: localStorage.getItem('restricciones-alimentarias') || ''
+                    },
+                    {
+                        question: 'Productos locales',
+                        answer: selectedValue
+                    }
+                ];
+
+                // Llamar a la función de completar encuesta
+                const response = await fetch('/.netlify/functions/complete-survey', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({ 
+                        responses: respuestasEncuesta
+                    }),
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    // Actualizar localStorage también
+                    const userData = JSON.parse(localStorage.getItem('user_data'));
+                    userData.surveyCompleted = true;
+                    localStorage.setItem('user_data', JSON.stringify(userData));
+                    localStorage.setItem('encuestaCompletada', 'true');
+                    
+                    // SweetAlert de éxito
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Encuesta Completada!',
+                        text: 'Tu plan nutricional personalizado ha sido generado exitosamente',
+                        confirmButtonColor: '#6b46c1'
+                    }).then(() => {
+                        window.location.href = 'plan-nutricional.html';
+                    });
+                } else {
+                    console.error('Error al completar encuesta:', data.error);
+                    // Fallback a método anterior si falla
+                    localStorage.setItem('encuestaCompletada', 'true');
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Encuesta Completada!',
+                        text: 'Tu plan nutricional personalizado ha sido generado exitosamente',
+                        confirmButtonColor: '#6b46c1'
+                    }).then(() => {
+                        window.location.href = 'plan-nutricional.html';
+                    });
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                // Fallback a método anterior si hay error
+                localStorage.setItem('encuestaCompletada', 'true');
                 Swal.fire({
                     icon: 'success',
                     title: '¡Encuesta Completada!',
