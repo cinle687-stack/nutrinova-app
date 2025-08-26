@@ -90,8 +90,14 @@
       color: white;
     }
 
+    /* Botón hamburguesa */
     .menu-toggle {
       display: none;
+      font-size: 28px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #333;
     }
 
     /* Hero */
@@ -207,11 +213,15 @@
     /* Responsive */
     @media (max-width: 992px) {
       .headerbox-container {
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-between;
       }
 
       .headerbox-container-a {
         display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 15px;
       }
 
       .menu-toggle {
@@ -230,6 +240,11 @@
   <div class="headerbox">
     <div class="headerbox-container">
       <a href="#inicio"><img class="headerbox-logo" src="logo-nutrinova.png" alt="NutriNova Logo" /></a>
+
+      <!-- Botón hamburguesa -->
+      <button class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
 
       <div class="headerbox-container-a" id="nav-links">
         <a href="#inicio" class="headerbox-a">Inicio</a>
@@ -285,8 +300,8 @@
   <section id="nosotros" style="background:#f8f8f8;">
     <h3>Sobre Nosotros</h3>
     <div class="container text-center">
-         <img src="gru.png" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;" alt="Asesoría Profesional">
-      <p>En <strong>NutriNova</strong> creemos que una buena nutrición es la clave para una vida saludable y plena. Nuestro equipo de expertos está comprometido a brindarte las mejores herramientas y acompañamiento en tu camino hacia el bienestar.</p>
+      <img src="gru.png" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;" alt="Asesoría Profesional">
+      <p>En <strong>NutriNova</strong> creemos que una buena nutrición es la clave para una vida saludable y plena. Somos estudiantes del Colegio Emblemático Toribio Casanova y como jóvenes comprometidos con el bienestar de nuestra comunidad, queremos ser parte de la solución a los problemas nutricionales que enfrentamos hoy en día.</p>
     </div>
   </section>
 
@@ -351,19 +366,29 @@
     function mostrarLogin() {
       window.location.href = 'inicio_sesion.html';
     }
-    
+
     function mostrarCalculadoraIMC() {
       window.location.href = 'calcular_imc.html';
     }
 
+    // Menú responsive
+    function toggleMenu() {
+      const nav = document.getElementById('nav-links');
+      if (nav.style.display === "flex") {
+        nav.style.display = "none";
+      } else {
+        nav.style.display = "flex";
+      }
+    }
+
     // Formulario de contacto con SweetAlert
-    document.getElementById('contactForm').addEventListener('submit', function(e) {
+    document.getElementById('contactForm').addEventListener('submit', function (e) {
       e.preventDefault();
-      
+
       const nombre = document.getElementById('nombre').value;
       const correo = document.getElementById('correo').value;
       const mensaje = document.getElementById('mensaje').value;
-      
+
       if (!nombre || !correo || !mensaje) {
         Swal.fire({
           icon: 'error',
@@ -373,7 +398,7 @@
         });
         return;
       }
-      
+
       // Mostrar mensaje de éxito
       Swal.fire({
         icon: 'success',
