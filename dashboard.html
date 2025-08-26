@@ -288,38 +288,47 @@
 
     <script>
         // Cargar datos del usuario al inicializar
-        window.onload = function() {
+        window.onload = function () {
             // Verificar si el usuario está logueado
             const usuarioLogueado = localStorage.getItem('usuarioLogueado');
-            if (!usuarioLogueado) {
-                // Si no está logueado, redirigir al login
+            const userData = JSON.parse(localStorage.getItem('user_data'));
+
+            if (!usuarioLogueado && !userData) {
                 window.location.href = 'inicio_sesion.html';
                 return;
             }
 
-            // Verificar si completó la encuesta
-            const encuestaCompletada = localStorage.getItem('encuestaCompletada');
-            console.log('Dashboard - Encuesta completada:', encuestaCompletada); // Para debug
-            
-            if (encuestaCompletada !== 'true') {
-                // Si no completó la encuesta, redirigir a pregunta 1
-                console.log('Dashboard - Redirigiendo a encuesta');
-                window.location.href = 'pregunta1.html';
+            // PRIMERA OPCIÓN: Verificar user_data (viene de la base de datos)
+            if (userData && userData.surveyCompleted) {
+                console.log('Dashboard - Usuario completó encuesta según BD');
+                // Mostrar dashboard
+                mostrarDashboard();
                 return;
             }
 
-            // Solo si llegó aquí significa que SÍ completó la encuesta
-            console.log('Dashboard - Mostrando dashboard');
-            
-            // Simular datos del usuario desde localStorage
-            const userData = {
-                nombre: localStorage.getItem('nombreUsuario') || 'Usuario',
-                encuestaCompletada: true
-            };
+            // SEGUNDA OPCIÓN: Verificar localStorage como fallback
+            const encuestaCompletada = localStorage.getItem('encuestaCompletada');
+            if (encuestaCompletada === 'true') {
+                console.log('Dashboard - Usuario completó encuesta según localStorage');
+                // Mostrar dashboard
+                mostrarDashboard();
+                return;
+            }
 
-            // Mostrar nombre del usuario
-            document.getElementById('userName').textContent = `¡Hola, ${userData.nombre}!`;
+            // Si no completó por ningún método, redirigir a encuesta
+            console.log('Dashboard - Redirigiendo a encuesta');
+            window.location.href = 'pregunta1.html';
         };
+
+        function mostrarDashboard() {
+            const userData = JSON.parse(localStorage.getItem('user_data'));
+            const nombreUsuario = (userData && userData.name) ||
+                localStorage.getItem('nombreUsuario') ||
+                'Usuario';
+
+            document.getElementById('userName').textContent = `¡Hola, ${nombreUsuario}!`;
+            console.log('Dashboard - Mostrando dashboard correctamente');
+        }
 
         function verPlan() {
             window.location.href = 'plan-nutricional.html';
