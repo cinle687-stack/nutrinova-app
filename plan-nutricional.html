@@ -178,7 +178,7 @@
       'obesidad-iii': { base: 1200, factor: 0.7 }
     };
     const factorActividad = { 'sedentario': 0.9, 'ligero': 1.0, 'moderado': 1.1, 'intenso': 1.3 };
-    const factorEdad = { '18-35': 1.0, '36-55': 0.95, '56-75': 0.9, 'mayor-75': 0.85 };
+    const factorEdad = { '10-35': 1.0, '36-55': 0.95, '56-75': 0.9, 'mayor-75': 0.85 };
 
     function calcularCalorias(imc, actividad, edad, objetivo) {
       let base = (factorCalorico[imc]?.base) ?? 1800;
@@ -268,7 +268,7 @@
       const respuestas = {
         imc: localStorage.getItem('imc') || 'normal',
         objetivo: localStorage.getItem('objetivo') || 'mantener-peso',
-        edad: localStorage.getItem('edad') || '18-35',
+        edad: localStorage.getItem('edad') || '10-35',
         actividad: localStorage.getItem('actividad-fisica') || 'moderado',
         productos: localStorage.getItem('productos-locales') || 'variado'
       };
