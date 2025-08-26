@@ -23,13 +23,14 @@
       line-height: 1.6;
       font-size: 18px;
       color: #333;
+      overflow-x: hidden;
     }
 
     /* HEADER */
     .headerbox {
       background-color: white;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      padding: 20px 0;
+      padding: 15px 0;
       position: fixed;
       width: 100%;
       top: 0;
@@ -42,11 +43,11 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 0 40px;
+      padding: 0 20px;
     }
 
     .headerbox-logo {
-      height: 150px;
+      height: 60px;
       width: auto;
     }
 
@@ -61,9 +62,10 @@
       text-decoration: none;
       color: #333;
       font-weight: 600;
-      font-size: 24px;
-      margin: 0 20px;
+      font-size: 18px;
+      margin: 0 15px;
       transition: color 0.3s ease;
+      white-space: nowrap;
     }
 
     .headerbox-a:hover {
@@ -73,15 +75,16 @@
     .headerbox-a-btn {
       background: linear-gradient(135deg, #f97316, #ec4899);
       color: white;
-      padding: 12px 28px;
+      padding: 10px 20px;
       border: none;
       border-radius: 25px;
       font-weight: 700;
-      font-size: 18px;
+      font-size: 16px;
       text-decoration: none;
       cursor: pointer;
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
+      white-space: nowrap;
     }
 
     .headerbox-a-btn:hover {
@@ -93,11 +96,12 @@
     /* Botón hamburguesa */
     .menu-toggle {
       display: none;
-      font-size: 28px;
+      font-size: 24px;
       background: none;
       border: none;
       cursor: pointer;
       color: #333;
+      padding: 5px;
     }
 
     /* Hero */
@@ -105,9 +109,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      height: 65vh;
+      min-height: 60vh;
       background: url('https://img.freepik.com/fotos-premium/fresh-organic-vegetables-fruits-healthy-eating-concept_1179130-10247.jpg?w=740') center/cover no-repeat;
       position: relative;
+      margin-top: 80px;
     }
 
     .hero-overlay {
@@ -120,12 +125,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 0 20px;
+      padding: 20px;
     }
 
     .hero-content {
       color: white;
-      font-size: 28px;
+      font-size: 24px;
       font-weight: bold;
       text-align: center;
       max-width: 800px;
@@ -146,17 +151,20 @@
 
     .hero-btn:hover {
       background-color: #444;
+      color: white;
+      text-decoration: none;
     }
 
     /* Secciones */
     section {
-      padding: 80px 20px;
+      padding: 60px 20px;
     }
 
     h3 {
       text-align: center;
       font-weight: 700;
       margin-bottom: 40px;
+      font-size: 28px;
     }
 
     /* Servicios */
@@ -167,6 +175,7 @@
       text-align: center;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
+      margin-bottom: 20px;
     }
 
     .service-card:hover {
@@ -187,6 +196,7 @@
       text-align: center;
       font-style: italic;
       box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+      margin-bottom: 20px;
     }
 
     /* Contacto */
@@ -194,6 +204,7 @@
       border-radius: 10px;
       padding: 14px;
       font-size: 16px;
+      margin-bottom: 15px;
     }
 
     .btn-primary {
@@ -210,26 +221,170 @@
       box-shadow: 0 6px 15px rgba(236, 72, 153, 0.4);
     }
 
-    /* Responsive */
-    @media (max-width: 992px) {
+    /* Footer */
+    footer {
+      margin-top: 0;
+    }
+
+    /* RESPONSIVE MOBILE */
+    @media (max-width: 768px) {
+      body {
+        font-size: 16px;
+      }
+
+      .headerbox {
+        padding: 10px 0;
+      }
+
       .headerbox-container {
-        flex-direction: row;
-        justify-content: space-between;
+        padding: 0 15px;
+        flex-wrap: nowrap;
+      }
+
+      .headerbox-logo {
+        height: 50px;
       }
 
       .headerbox-container-a {
-        display: none;
-        flex-direction: column;
+        position: fixed;
+        top: 70px;
+        left: 0;
         width: 100%;
-        margin-top: 15px;
+        background: white;
+        flex-direction: column;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px 0;
+        display: none;
+        z-index: 999;
+      }
+
+      .headerbox-container-a.mobile-menu-open {
+        display: flex;
+      }
+
+      .headerbox-a {
+        margin: 10px 0;
+        font-size: 18px;
+        padding: 10px 20px;
+        width: 100%;
+        text-align: center;
       }
 
       .menu-toggle {
         display: block;
+        margin-left: auto;
+      }
+
+      .headerbox-a-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+        margin-left: 10px;
+      }
+
+      /* Hero móvil */
+      .hero-section {
+        min-height: 50vh;
+        margin-top: 70px;
       }
 
       .hero-content {
         font-size: 20px;
+        padding: 0 10px;
+      }
+
+      .hero-btn {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+
+      /* Secciones móvil */
+      section {
+        padding: 40px 15px;
+      }
+
+      h3 {
+        font-size: 24px;
+        margin-bottom: 30px;
+      }
+
+      .service-card {
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .service-card img {
+        height: 150px !important;
+      }
+
+      .testimonial {
+        padding: 15px;
+      }
+
+      .testimonial img {
+        width: 60px !important;
+        height: 60px !important;
+      }
+
+      /* Formulario móvil */
+      .form-control {
+        padding: 12px;
+        font-size: 16px;
+      }
+
+      .btn-primary {
+        width: 100%;
+        padding: 12px;
+      }
+
+      /* Container responsive */
+      .container {
+        padding-left: 15px;
+        padding-right: 15px;
+      }
+
+      .row {
+        margin-left: -10px;
+        margin-right: -10px;
+      }
+
+      .col-md-4, .col-md-6 {
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+    }
+
+    /* Tablets */
+    @media (min-width: 769px) and (max-width: 992px) {
+      .headerbox-logo {
+        height: 80px;
+      }
+
+      .headerbox-a {
+        font-size: 16px;
+        margin: 0 10px;
+      }
+
+      .hero-content {
+        font-size: 22px;
+      }
+
+      h3 {
+        font-size: 26px;
+      }
+    }
+
+    /* Desktop grande */
+    @media (min-width: 1200px) {
+      .headerbox-logo {
+        height: 100px;
+      }
+
+      .headerbox-a {
+        font-size: 20px;
+      }
+
+      .hero-content {
+        font-size: 28px;
       }
     }
   </style>
@@ -241,11 +396,6 @@
     <div class="headerbox-container">
       <a href="#inicio"><img class="headerbox-logo" src="logo-nutrinova.png" alt="NutriNova Logo" /></a>
 
-      <!-- Botón hamburguesa -->
-      <button class="menu-toggle" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i>
-      </button>
-
       <div class="headerbox-container-a" id="nav-links">
         <a href="#inicio" class="headerbox-a">Inicio</a>
         <a href="#servicios" class="headerbox-a">Servicios</a>
@@ -256,11 +406,13 @@
       </div>
 
       <a href="#" class="headerbox-a-btn" onclick="mostrarLogin()">Iniciar Sesión</a>
+
+      <!-- Botón hamburguesa -->
+      <button class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
   </div>
-
-  <!-- ESPACIADOR -->
-  <div style="height: 120px;"></div>
 
   <!-- HERO -->
   <section class="hero-section" id="inicio">
@@ -300,7 +452,7 @@
   <section id="nosotros" style="background:#f8f8f8;">
     <h3>Sobre Nosotros</h3>
     <div class="container text-center">
-      <img src="gru.png" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;" alt="Asesoría Profesional">
+      <img src="nos.png" style="width: 100%; max-width: 400px; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px;" alt="Asesoría Profesional">
       <p>En <strong>NutriNova</strong> creemos que una buena nutrición es la clave para una vida saludable y plena. Somos estudiantes del Colegio Emblemático Toribio Casanova y como jóvenes comprometidos con el bienestar de nuestra comunidad, queremos ser parte de la solución a los problemas nutricionales que enfrentamos hoy en día.</p>
     </div>
   </section>
@@ -371,15 +523,41 @@
       window.location.href = 'calcular_imc.html';
     }
 
-    // Menú responsive
+    // Menú responsive mejorado
     function toggleMenu() {
       const nav = document.getElementById('nav-links');
-      if (nav.style.display === "flex") {
-        nav.style.display = "none";
+      const menuToggle = document.querySelector('.menu-toggle i');
+      
+      if (nav.classList.contains('mobile-menu-open')) {
+        nav.classList.remove('mobile-menu-open');
+        menuToggle.className = 'fas fa-bars';
       } else {
-        nav.style.display = "flex";
+        nav.classList.add('mobile-menu-open');
+        menuToggle.className = 'fas fa-times';
       }
     }
+
+    // Cerrar menú móvil al hacer clic en un enlace
+    document.querySelectorAll('.headerbox-a').forEach(link => {
+      link.addEventListener('click', () => {
+        const nav = document.getElementById('nav-links');
+        const menuToggle = document.querySelector('.menu-toggle i');
+        if (window.innerWidth <= 768) {
+          nav.classList.remove('mobile-menu-open');
+          menuToggle.className = 'fas fa-bars';
+        }
+      });
+    });
+
+    // Cerrar menú móvil al redimensionar ventana
+    window.addEventListener('resize', () => {
+      const nav = document.getElementById('nav-links');
+      const menuToggle = document.querySelector('.menu-toggle i');
+      if (window.innerWidth > 768) {
+        nav.classList.remove('mobile-menu-open');
+        menuToggle.className = 'fas fa-bars';
+      }
+    });
 
     // Formulario de contacto con SweetAlert
     document.getElementById('contactForm').addEventListener('submit', function (e) {
