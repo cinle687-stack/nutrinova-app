@@ -190,6 +190,50 @@
             text-decoration: none;
         }
 
+        /* Estilos personalizados para SweetAlert2 */
+        .swal2-popup.trial-popup {
+            font-family: 'Poppins', sans-serif !important;
+        }
+
+        .swal2-title.trial-title {
+            color: #6b46c1 !important;
+            font-weight: 700 !important;
+        }
+
+        .trial-content {
+            text-align: left;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .trial-highlight {
+            background: linear-gradient(135deg, #6b46c1, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        .trial-plans {
+            margin: 20px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, rgba(107, 70, 193, 0.1), rgba(236, 72, 153, 0.1));
+            border-radius: 10px;
+            border-left: 4px solid #6b46c1;
+        }
+
+        .trial-plan-item {
+            margin: 8px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .trial-plan-item i {
+            color: #6b46c1;
+            margin-right: 10px;
+        }
+
         @media (max-width: 992px) {
             .login-container {
                 flex-direction: column;
@@ -281,6 +325,61 @@
             }
         }
 
+        // Función para mostrar el popup de período de prueba
+        function showTrialPopup() {
+            return Swal.fire({
+                title: '🎉 ¡Bienvenido a NutriNova!',
+                html: `
+                    <div class="trial-content">
+                        <p>¡Nos alegra que te hayas unido a nuestra comunidad!</p>
+                        
+                        <div style="text-align: center; margin: 20px 0;">
+                            <p class="trial-highlight">🎁 Período de prueba GRATUITO de 20 días</p>
+                        </div>
+                        
+                        <p>Durante estos 20 días podrás disfrutar de:</p>
+                        <ul style="text-align: left; margin: 15px 0;">
+                            <li>✅ Plan nutricional personalizado</li>
+                            <li>✅ Seguimiento de tus metas</li>
+                            <li>✅ Recetas saludables</li>
+                            <li>✅ Análisis nutricional completo</li>
+                        </ul>
+                        
+                        <div class="trial-plans">
+                            <p><strong>Al finalizar tu período gratuito, podrás elegir:</strong></p>
+                            <div class="trial-plan-item">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span><strong>Plan Mensual:</strong> S/ 20.00 por mes</span>
+                            </div>
+                            <div class="trial-plan-item">
+                                <i class="fas fa-calendar-check"></i>
+                                <span><strong>Plan Trimestral:</strong> S/ 50.00 por 3 meses <em>(¡Ahorra S/ 10!)</em></span>
+                            </div>
+                        </div>
+                        
+                        <p style="font-size: 14px; color: #666; text-align: center; margin-top: 15px;">
+                            No te preocupes, te recordaremos antes de que termine tu período de prueba.
+                        </p>
+                    </div>
+                `,
+                icon: null,
+                confirmButtonText: '¡Empezar mi prueba gratuita!',
+                confirmButtonColor: '#6b46c1',
+                allowOutsideClick: false,
+                customClass: {
+                    popup: 'trial-popup',
+                    title: 'trial-title'
+                },
+                width: '600px',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            });
+        }
+
         document.getElementById('loginForm').addEventListener('submit', async function (e) {
             e.preventDefault();
 
@@ -339,19 +438,44 @@
                 localStorage.setItem('nombreUsuario', data.user.name || email.split('@')[0]);
                 localStorage.setItem('usuarioLogueado', 'true');
 
-                Swal.fire({
-                    icon: 'success',
-                    title: '¡Bienvenido!',
-                    text: 'Has iniciado sesión correctamente',
-                    confirmButtonColor: '#6b46c1'
-                }).then(() => {
-                    // Redirigir según si completó la encuesta
-                    if (data.user.surveyCompleted) {
-                        window.location.href = 'dashboard.html';
-                    } else {
+                // Verificar si es el primer login y no ha completado la encuesta
+                const isFirstLogin = !data.user.surveyCompleted && !localStorage.getItem('trialShown_' + data.user.id);
+                
+                if (isFirstLogin) {
+                    // Marcar que ya se mostró el popup de prueba para este usuario
+                    localStorage.setItem('trialShown_' + data.user.id, 'true');
+                    
+                    // Guardar fecha de inicio del período de prueba
+                    const trialStartDate = new Date();
+                    const trialEndDate = new Date(trialStartDate.getTime() + (20 * 24 * 60 * 60 * 1000)); // 20 días
+                    localStorage.setItem('trialStartDate_' + data.user.id, trialStartDate.toISOString());
+                    localStorage.setItem('trialEndDate_' + data.user.id, trialEndDate.toISOString());
+                    
+                    Swal.close(); // Cerrar el loader
+                    
+                    // Mostrar popup de período de prueba
+                    showTrialPopup().then(() => {
+                        // Después del popup, redirigir a la encuesta
                         window.location.href = 'pregunta1.html';
-                    }
-                });
+                    });
+                } else {
+                    // Login normal - mostrar mensaje de bienvenida y redirigir
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Bienvenido de vuelta!',
+                        text: 'Has iniciado sesión correctamente',
+                        confirmButtonColor: '#6b46c1',
+                        timer: 2000,
+                        timerProgressBar: true
+                    }).then(() => {
+                        // Redirigir según si completó la encuesta
+                        if (data.user.surveyCompleted) {
+                            window.location.href = 'dashboard.html';
+                        } else {
+                            window.location.href = 'pregunta1.html';
+                        }
+                    });
+                }
 
             } catch (error) {
                 Swal.fire({
@@ -362,6 +486,22 @@
                 });
             }
         });
+
+        // Función para verificar el estado del período de prueba (opcional - para uso futuro)
+        function checkTrialStatus(userId) {
+            const trialEndDate = localStorage.getItem('trialEndDate_' + userId);
+            if (trialEndDate) {
+                const endDate = new Date(trialEndDate);
+                const now = new Date();
+                const daysLeft = Math.ceil((endDate - now) / (1000 * 60 * 60 * 24));
+                return {
+                    isActive: daysLeft > 0,
+                    daysLeft: Math.max(0, daysLeft),
+                    expired: daysLeft <= 0
+                };
+            }
+            return null;
+        }
     </script>
 </body>
 

@@ -51,7 +51,7 @@ exports.handler = async (event, context) => {
       WHERE id = ${userId}
     `;
 
-    // Guardar respuestas de la encuesta (opcional)
+    // Guardar respuestas de la encuesta
     if (responses && Array.isArray(responses)) {
       for (const response of responses) {
         await sql`
