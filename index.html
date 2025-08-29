@@ -85,11 +85,65 @@
       transition: all 0.3s ease;
       box-shadow: 0 4px 15px rgba(249, 115, 22, 0.3);
       white-space: nowrap;
+      margin-left: 15px;
     }
 
     .headerbox-a-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(249, 115, 22, 0.4);
+      color: white;
+    }
+
+    /* Usuario logueado */
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .welcome-text {
+      font-weight: 600;
+      color: #6b46c1;
+      white-space: nowrap;
+    }
+
+    .logout-btn {
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+
+    .logout-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+      color: white;
+    }
+
+    .dashboard-btn {
+      background: linear-gradient(135deg, #6b46c1, #ec4899);
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      font-size: 14px;
+    }
+
+    .dashboard-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(107, 70, 193, 0.4);
       color: white;
     }
 
@@ -275,6 +329,12 @@
         margin-left: auto;
       }
 
+      .user-info {
+        flex-direction: column;
+        gap: 5px;
+        font-size: 14px;
+      }
+
       .headerbox-a-btn {
         padding: 8px 16px;
         font-size: 14px;
@@ -403,9 +463,22 @@
         <a href="#nosotros" class="headerbox-a">Nosotros</a>
         <a href="#testimonios" class="headerbox-a">Testimonios</a>
         <a href="#contacto" class="headerbox-a">Contacto</a>
+        <!-- Opción Mi Plan (solo aparece si está logueado) -->
+        <a href="plan-nutricional.html" class="headerbox-a" id="miPlanLink" style="display: none;">Mi Plan</a>
       </div>
 
-      <a href="#" class="headerbox-a-btn" onclick="mostrarLogin()">Iniciar Sesión</a>
+      <!-- Sección de usuario (cambia según esté logueado o no) -->
+      <div id="userSection">
+        <!-- Por defecto: botón iniciar sesión -->
+        <a href="#" class="headerbox-a-btn" onclick="mostrarLogin()" id="loginBtn">Iniciar Sesión</a>
+        
+        <!-- Cuando esté logueado: nombre + botones (oculto por defecto) -->
+        <div class="user-info" id="loggedUserInfo" style="display: none;">
+          <span class="welcome-text" id="userName">¡Hola Usuario!</span>
+          <a href="dashboard.html" class="dashboard-btn">Mi Panel</a>
+          <a href="#" class="logout-btn" onclick="logout()">Salir</a>
+        </div>
+      </div>
 
       <!-- Botón hamburguesa -->
       <button class="menu-toggle" onclick="toggleMenu()">
@@ -515,12 +588,55 @@
   </footer>
 
   <script>
+    // Verificar al cargar la página si hay usuario logueado
+    window.onload = function() {
+      checkUserLogin();
+    };
+
+    function checkUserLogin() {
+      const usuarioLogueado = localStorage.getItem('usuarioLogueado');
+      const userData = JSON.parse(localStorage.getItem('user_data'));
+      
+      if (usuarioLogueado === 'true' || userData) {
+        // Usuario está logueado
+        const nombreUsuario = (userData && userData.name) || 
+                             localStorage.getItem('nombreUsuario') || 
+                             'Usuario';
+        
+        // Ocultar botón de iniciar sesión
+        document.getElementById('loginBtn').style.display = 'none';
+        
+        // Mostrar información de usuario logueado
+        document.getElementById('loggedUserInfo').style.display = 'flex';
+        document.getElementById('userName').textContent = `¡Hola, ${nombreUsuario}!`;
+        
+        // Mostrar enlace "Mi Plan" en el menú
+        document.getElementById('miPlanLink').style.display = 'block';
+        
+        console.log('Usuario logueado detectado:', nombreUsuario);
+      } else {
+        // Usuario NO está logueado
+        document.getElementById('loginBtn').style.display = 'block';
+        document.getElementById('loggedUserInfo').style.display = 'none';
+        document.getElementById('miPlanLink').style.display = 'none';
+        
+        console.log('Usuario NO logueado');
+      }
+    }
+
     function mostrarLogin() {
       window.location.href = 'inicio_sesion.html';
     }
 
     function mostrarCalculadoraIMC() {
       window.location.href = 'calcular_imc.html';
+    }
+
+    function logout() {
+      // Limpiar datos del usuario
+      localStorage.clear();
+      // Recargar la página para actualizar la interfaz
+      window.location.reload();
     }
 
     // Menú responsive mejorado
